@@ -1,0 +1,18 @@
+<!-- projects.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Projetos</h3>
+    <div class="listagem">
+        {% for pj in projetos %}
+            <div>
+                {% load static %}
+                {% static "" as baseUrl %}
+                <img width="200" src="{{ baseUrl }}portfolio/images/{{ pj.imagem }}">
+                <h1>{{ pj.titulo }}</h1>
+                <p>{{ pj.cadeira }} | {{ pj.semestre }}<br />{{ pj.descricao }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+header {
+    height: 10vh;
+    background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%) no-repeat;
+    position: sticky;
+    top: 0;
+    color: #333;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+    /* alinhando logo e menu */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Trazer para a frente */
+    z-index: 1;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  header {
+    background: linear-gradient(90deg, hsla(211, 66%, 87%, 0.8) 0%, hsla(348, 67%, 88%, 0.8) 50%, hsla(272, 26%, 72%, 0.8) 100%) no-repeat;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+header div {
+    font-size: 2em;
+    padding: 1em;
+}
+
+header nav {
+    display: flex;
+    justify-contents: flex-end;
+}
+
+
+nav a {
+    padding: 0 1em;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+}
+
+
+main {
+    min-height: 85vh;
+    background: #EEE;
+    padding: 4em 4em;
+}
+
+/*
+    HERO PAGE
+*/
+.hero {
+    height: 90vh;
+    position: relative;
+}
+
+.hero > video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    border-radius: 10px;
+}
+
+.hero > h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    color: #FFF;
+    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05);
+}
+
+.hero > p {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 24px;
+    color: #FFF;
+    text-shadow: 0px 15px 5px rgba(0, 0, 0, 0.1),
+    10px 20px 5px rgba(0, 0, 0, 0.05),
+    -10px 20px 5px rgba(0, 0, 0, 0.05);
+}
+
+.parallax {
+    margin: 15px auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-color: #333;
+    align-items: center;
+    padding: 30px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    border-radius: 10px;
+}
+
+.parallax p {
+    text-align: center;
+    color: #FFF;
+    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05);
+}
+
+.img1 {
+    background-image: url("../images/hero-image.d4f5d7654bda.jpg");
+}
+
+.img2 {
+    background-image: url("../images/text-bg.c4a1ad800b63.jpg");
+}
+
+/*
+    END OF HERO PAGE
+ */
+
+.title {
+    font-size: 2em;
+}
+
+.listagem {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    vertical-align: middle;
+    padding: 20px 10px;
+}
+
+.listagem div {
+    margin: 10px;
+    width: 350px;
+    min-height: 200px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+.listagem div > a, .listagem div > i{
+    margin: 20px;
+}
+
+form {
+    display: block;
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+}
+
+form > p, form > label {
+    display: block;
+    margin-top: 15px;
+}
+
+form label > label {
+    display: block;
+    margin-top: 5px;
+}
+
+form input, form select {
+    margin: 5px 0;
+    border: 1px solid #DDD;
+}
+
+.form-control {
+    display: block;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #FFF;
+}
+
+.helptext {
+    font-size: 0.8em;
+    color: #AAA;
+}
+
+.btn {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    background-color: #60ac53;
+    color: #FFF;
+}
+
+.btn-success {
+    margin-top: 10px;
+    background-color: #60ac53;
+    color: #FFF;
+}
+
+.btn-reset {
+    margin-top: 5px;
+    background-color: darkgray;
+    color: #FFF;
+}
+
+.btn-success:hover {
+    cursor: pointer;
+    background-color: #60ac99;
+}
+
+.btn-reset:hover {
+    cursor: pointer;
+    background-color: lightslategray;
+}
+
+.grafico {
+    display: block;
+    margin: 30px auto 0 auto;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+footer {
+    height: 5vh;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 2vw;
+    align-items: center;
+}

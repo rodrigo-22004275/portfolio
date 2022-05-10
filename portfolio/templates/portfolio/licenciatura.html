@@ -1,0 +1,15 @@
+<!-- licenciatura.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Cursos</h3>
+    <div class="listagem">
+        {% for curso in cursos %}
+            <div>
+                <h1>{{ curso.nome }}</h1>
+                <p>{{ curso.professor }} | {{ curso.semestre }} | {{ curso.ects }} ects</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

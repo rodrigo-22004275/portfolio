@@ -1,0 +1,33 @@
+<!-- blog.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Blog</h3>
+    <div class="listagem">
+        {% for post in posts %}
+            <div>
+                <h1>{{ post.titulo }}</h1>
+                <p>{{ post.descricao }}<br /><i>Por {{ post.autor }},<br>
+                    {% if post.data.date == agora.date %}
+                        hoje
+                    {% else %}
+                        de {{ post.data.day }}/{{ post.data.month }} de {{ post.data.year }}
+                    {% endif %}
+                    às {{ post.data.hour }}:{{ post.data.minute }}
+                    </i>
+                </p>
+                {% if post.link != '' %}
+                    <a href="{{ post.link }}">Saber mais</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Gravar" class="btn btn-success" >
+    </form>
+{% endblock %}

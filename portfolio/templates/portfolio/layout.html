@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'portfolio/css/layout.css' %}">
+</head>
+<body>
+<header>
+    <div>Rodrigo Félix</div>
+    <nav>
+        <a href="{% url 'portfolio:home' %}">Inicio</a>
+        <a href="{% url 'portfolio:blog' %}">Blog</a>
+        <a href="{% url 'portfolio:projects' %}">Projetos</a>
+        <a href="{% url 'portfolio:licenciatura' %}">Licenciatura</a>
+        <a href="{% url 'portfolio:quizz' %}">Quizz</a>
+        <a href="{% url 'portfolio:contact' %}">Contacto</a>
+    </nav>
+</header>
+
+<main>
+    {% block main %}
+	{% endblock main %}
+</main>
+
+<footer>ULHT, 2022</footer>
+</body>
+</html>

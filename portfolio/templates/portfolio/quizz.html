@@ -1,0 +1,84 @@
+<!-- contact.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Quizz de PW</h3>
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            Como se chama?
+            <input type="text" class="form-control" name="nome" maxlength="100" placeholder="Escreva o seu nome">
+        </label>
+        <label>
+            Qual a extensão utilizada para páginas HTML?
+            <label for="cssExt">
+                <input type="radio" value=".css" name="extensao" id="cssExt">
+                .css
+            </label>
+            <label for="htmlExt">
+                <input type="radio" value=".html" name="extensao" id="htmlExt">
+                .html
+            </label>
+            <label for="phpExt">
+                <input type="radio" value=".php" name="extensao" id="phpExt">
+                .php
+            </label>
+        </label>
+
+        <label>
+            Que tecnologia de backend foi ensinada em PW?
+            <label for="css">
+                <input type="radio" value="css" name="tecnologias" id="css">
+                CSS
+            </label>
+            <label for="html">
+                <input type="radio" value="html" name="tecnologias" id="html">
+                HTML
+            </label>
+            <label for="py">
+                <input type="radio" value="py" name="tecnologias" id="py">
+                Python
+            </label>
+            <label for="js">
+                <input type="radio" value="js" name="tecnologias" id="js">
+                JavaScript
+            </label>
+        </label>
+
+        <label>
+            Python não necessita de ponto e vírgula:
+            <select class="form-control" name="pySemPontoVirgula">
+                <option hidden disabled selected>Escolha uma opção...</option>
+                <option value="true">Verdadeiro</option>
+                <option value="false">Falso</option>
+            </select>
+        </label>
+
+        <label>
+            Django é a base do WordPress:
+            <select class="form-control" name="djangoIsWordpress">
+                <option hidden disabled selected>Escolha uma opção...</option>
+                <option value="true">Verdadeiro</option>
+                <option value="false">Falso</option>
+            </select>
+        </label>
+
+        <label>
+            Django tem suporte a base de dados:
+            <select class="form-control" name="djangoDB">
+                <option hidden disabled selected>Escolha uma opção...</option>
+                <option value="true">Verdadeiro</option>
+                <option value="false">Falso</option>
+            </select>
+        </label>
+
+        <br>
+        <label>Sente-se seguro das suas respostas?</label>
+        <input type="submit" class="btn btn-success" value="Submeter e avaliar">
+        <input type="reset" class="btn btn-reset" value="Limpar tudo">
+    </form>
+
+    {% load static%}
+    <img class="grafico" src="{% static 'portfolio/images/grafico.png' %}" />
+{% endblock %}
