@@ -157,6 +157,16 @@ main {
     font-size: 2em;
 }
 
+.add-btn {
+    border-radius: 20px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border: none;
+    background: #DDD;
+    position: relative;
+    bottom: 5px;
+}
+
 .listagem {
     display: flex;
     flex-flow: row wrap;

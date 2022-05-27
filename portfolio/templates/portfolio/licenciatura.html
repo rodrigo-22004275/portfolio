@@ -3,25 +3,30 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Cursos</h3>
+	<h3 class="title">Cadeiras <a class="add-btn" href="#add">Adicionar +</a></h3>
 
     <div class="listagem">
         {% for cadeira in cadeiras %}
             <article>
                 <img src="{{ cadeira.imagem.url }}" alt="{{ cadeira.imagem.name }}">
                 <div class="content">
-                    <h1>{{ cadeira.nome }}</h1>
-                    <p>{{ cadeira.ano }}º ano | {{ cadeira.semestre }}º semestre | {{ cadeira.ects }} ects
-                        <br>Lecionada por {{ cadeira.docente_teorica.nome }} e {{ cadeira.docente_pratica.nome }}<br><br>
+
+                    <p>
+                        <b>{{ cadeira.nome }}</b>
+                        Lecionada por {{ cadeira.docente_teorica.nome }} e {{ cadeira.docente_pratica.nome }}
+                        <br><br>
                         {{ cadeira.descricao }}
                     </p>
+                </div>
+                <div class="author">
+                    <p>{{ cadeira.ano }}º ano | {{ cadeira.semestre }}º semestre | {{ cadeira.ects }} ects</p>
                 </div>
             </article>
         {% endfor %}
     </div>
 
     {% if request.user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="add">
             {% csrf_token %}
             <label>
                 Título da cadeira
@@ -85,7 +90,7 @@
             <input type="reset" class="btn btn-reset" value="Limpar tudo">
         </form>
     {% else %}
-        <div class="info-banner">
+        <div class="info-banner" id="add">
             <p>Poderá adicionar mais conteúdo fazendo login <a href="{% url 'portfolio:login' %}">aqui</a></p>
         </div>
     {% endif %}

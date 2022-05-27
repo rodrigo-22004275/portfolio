@@ -3,7 +3,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Projetos</h3>
+	<h3 class="title">Projetos <a class="add-btn" href="#add">Adicionar +</a></h3>
     <div class="listagem">
         {% for pj in projetos %}
             <article>
@@ -25,7 +25,7 @@
     </div>
 
     {%  if request.user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="add">
             {% csrf_token %}
             <label>
                 Título do projeto
@@ -62,7 +62,7 @@
             <input type="reset" class="btn btn-reset" value="Limpar tudo">
         </form>
     {% else %}
-        <div class="info-banner">
+        <div class="info-banner" id="add">
             <p>Poderá adicionar mais conteúdo fazendo login <a href="{% url 'portfolio:login' %}">aqui</a></p>
         </div>
     {% endif %}
