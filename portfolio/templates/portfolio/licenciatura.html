@@ -25,7 +25,7 @@
             {% csrf_token %}
             <label>
                 Título da cadeira
-                <input type="text" class="form-control" name="nome" maxlength="20" placeholder="Escreva o nome da cadeira" required>
+                <input type="text" class="form-control" name="nome" maxlength="100" placeholder="Escreva o nome da cadeira" required>
             </label>
 
             <label>
@@ -76,7 +76,7 @@
 
             <label>
                 Créditos
-                <input type="number" class="form-control" name="ects" max="7" min="3" placeholder="Número de ECTs" required>
+                <input type="number" class="form-control" name="ects" max="6" min="4" placeholder="Número de ECTs" required>
             </label>
 
             <br>
