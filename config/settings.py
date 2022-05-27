@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+import _locale
 import os
 
 from environs import Env
@@ -140,3 +141,5 @@ CLOUDINARY_STORAGE = {
 MEDIA_URL = '/portfolio/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
