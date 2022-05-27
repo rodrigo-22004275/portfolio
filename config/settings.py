@@ -28,7 +28,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DEBUG", default=False)
+# DEBUG = env.bool("DEBUG", default=False)
+DEBUG = True
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -131,9 +132,9 @@ LOGIN_URL = '/login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CLOUDINARY_STORAGE = {
-  'CLOUD_NAME': "rodrifelix99",
-  'API_KEY': "437758631847552",
-  'API_SECRET': "7XL_aD_FHpVaNj1v0XDvjUVgBCc",
+    'CLOUD_NAME': "rodrifelix99",
+    'API_KEY': "437758631847552",
+    'API_SECRET': "7XL_aD_FHpVaNj1v0XDvjUVgBCc",
 }
 
 MEDIA_URL = '/portfolio/'
