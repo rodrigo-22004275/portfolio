@@ -142,4 +142,4 @@ MEDIA_URL = '/portfolio/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-_locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
+_locale._getdefaultlocale = (lambda *args: ['pt_PT', 'utf8'])
