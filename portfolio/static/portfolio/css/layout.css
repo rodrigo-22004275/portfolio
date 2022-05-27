@@ -182,16 +182,23 @@ main {
 
 .listagem article:hover {
     transform: scale(1.1);
-    z-index: 1;
+    z-index: 0.5;
 }
 
 .listagem article:hover > img {
     border-radius: 15px;
-    transform: scale(1.2);
+    box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+              12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+              22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+              41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+              100px 100px 80px rgba(0, 0, 0, 0.07);
+    transform: translate(0,  -10px) scale(1.2);
 }
 
-.listagem article:hover > .content {
-    padding-top: 20px;
+@keyframes floating {
+    from { transform: translate(0,  0px) scale(1.2); }
+    65%  { transform: translate(3px, 5px) scale(1.2); }
+    to   { transform: translate(0, 0px) scale(1.2); }
 }
 
 .listagem article:hover > .author > a {
