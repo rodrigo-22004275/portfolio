@@ -6,13 +6,64 @@
 	<h3 class="title">Projetos</h3>
     <div class="listagem">
         {% for pj in projetos %}
-            <div>
-                {% load static %}
-                {% static "" as baseUrl %}
-                <img width="200" src="{{ baseUrl }}portfolio/images/{{ pj.imagem }}">
-                <h1>{{ pj.titulo }}</h1>
-                <p>{{ pj.cadeira }} | {{ pj.semestre }}<br />{{ pj.descricao }}</p>
-            </div>
+            <article>
+                <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                <div class="content">
+                    <p>
+                        <b>{{ pj.titulo }}</b>
+                        <br />{{ pj.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>Cadeira de {{ pj.cadeira.nome }}</p>
+                    {% if post.link != '' %}
+                        <a href="{{ post.link }}">Ver projeto</a>
+                    {% endif %}
+                </div>
+            </article>
         {% endfor %}
     </div>
+
+    {%  if request.user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>
+                Título do projeto
+                <input type="text" class="form-control" name="titulo" maxlength="100" placeholder="Escreva o título do projeto" required>
+            </label>
+
+            <label>
+                Descrição do projeto
+                <textarea class="form-control" name="descricao" placeholder="Descreva o projeto" required></textarea>
+            </label>
+
+            <label>
+                Imagem de apresentação
+                <input type="file" class="form-control" name="imagem" accept="image/*">
+            </label>
+
+            <label>
+                Realizado em que cadeira?
+                <input class="form-control" name="cadeira" placeholder="Escreva uma cadeira" autocomplete="off" list="cadeiras" required />
+                <span class="helptext">Pode adicionar mais cadeiras <a href="{% url 'portfolio:licenciatura' %}">aqui</a></span>
+            </label>
+            <datalist id="cadeiras">
+                {% for cadeira in cadeiras %}
+                    <option value="{{ cadeira.nome }}">
+                {% endfor %}
+            </datalist>
+
+            <label>
+                Link de visita
+                <input type="url" class="form-control" name="link" placeholder="Insira um link do GitHub, Heroku, etc.">
+            </label>
+
+            <input type="submit" class="btn btn-success" value="Adicionar projeto">
+            <input type="reset" class="btn btn-reset" value="Limpar tudo">
+        </form>
+    {% else %}
+        <div class="info-banner">
+            <p>Poderá adicionar mais conteúdo fazendo login <a href="{% url 'portfolio:login' %}">aqui</a></p>
+        </div>
+    {% endif %}
 {% endblock %}

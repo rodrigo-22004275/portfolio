@@ -6,13 +6,32 @@
     font-family: 'Nunito', sans-serif;
 }
 
+*::-webkit-scrollbar {
+  width: 11px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #BBB;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #BBB;
+  border-radius: 10px;
+  border: none;
+}
+
 header {
     height: 10vh;
     background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%) no-repeat;
     position: sticky;
     top: 0;
     color: #333;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
 
     /* alinhando logo e menu */
     display: flex;
@@ -38,7 +57,7 @@ header div {
 
 header nav {
     display: flex;
-    justify-contents: flex-end;
+    justify-content: flex-end;
 }
 
 
@@ -68,7 +87,11 @@ main {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+              12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+              22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+              41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+              100px 100px 80px rgba(0, 0, 0, 0.07);
     border-radius: 10px;
 }
 
@@ -79,7 +102,7 @@ main {
     transform: translate(-50%, -50%);
     font-size: 100px;
     color: #FFF;
-    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+    text-shadow: 0 15px 5px rgba(0,0,0,0.1),
                  10px 20px 5px rgba(0,0,0,0.05),
                  -10px 20px 5px rgba(0,0,0,0.05);
 }
@@ -92,7 +115,7 @@ main {
     text-align: center;
     font-size: 24px;
     color: #FFF;
-    text-shadow: 0px 15px 5px rgba(0, 0, 0, 0.1),
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.1),
     10px 20px 5px rgba(0, 0, 0, 0.05),
     -10px 20px 5px rgba(0, 0, 0, 0.05);
 }
@@ -106,14 +129,14 @@ main {
     background-color: #333;
     align-items: center;
     padding: 30px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 25px 50px -12px;
     border-radius: 10px;
 }
 
 .parallax p {
     text-align: center;
     color: #FFF;
-    text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+    text-shadow: 0 15px 5px rgba(0,0,0,0.1),
                  10px 20px 5px rgba(0,0,0,0.05),
                  -10px 20px 5px rgba(0,0,0,0.05);
 }
@@ -143,18 +166,103 @@ main {
     padding: 20px 10px;
 }
 
-.listagem div {
+.listagem article {
+    position: relative;
     margin: 10px;
-    width: 350px;
-    min-height: 200px;
+    width: 400px;
+    height: 500px;
     padding: 10px 20px;
     border-radius: 20px;
     background: #FFF;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
-.listagem div > a, .listagem div > i{
-    margin: 20px;
+.listagem article:hover {
+    transform: scale(1.1);
+    z-index: 1;
+}
+
+.listagem article:hover > img {
+    border-radius: 15px;
+    transform: scale(1.2);
+}
+
+.listagem article:hover > .content {
+    padding-top: 20px;
+}
+
+.listagem article:hover > .author > a {
+    padding: 5px 20px;
+    border-radius: 15px;
+}
+
+.listagem article > img{
+    width: 100%;
+    height: 45%;
+    object-fit: cover;
+    object-position: center;
+    margin-top: 10px;
+    border-radius: 15px 15px 0 0;
+    background-color: #DDD;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.listagem article > .content{
+    width: 100%;
+    height: 40%;
+    margin-top: 5%;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.listagem article > .content > p{
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 5%;
+}
+
+.listagem article > .content > p > b{
+    font-size: 1.5em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.listagem article > .author {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 10%;
+    background: #FFF;
+    border-radius: 0 0 20px 20px;
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    -webkit-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+  -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+  box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+}
+
+.listagem article > .author > a {
+    text-decoration: none;
+    color: #333;
+    background-color: #DFDFDF;
+    border-radius: 10px;
+    padding: 5px 10px;
+    transition: all .5s;
+}
+
+.listagem article > .author > a:hover {
+    background-color: #CDCDCD;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
 }
 
 form {
@@ -162,6 +270,7 @@ form {
     margin: auto;
     width: 90%;
     max-width: 500px;
+    padding: 0 5%;
 }
 
 form > p, form > label {
@@ -176,16 +285,25 @@ form label > label {
 
 form input, form select {
     margin: 5px 0;
-    border: 1px solid #DDD;
 }
 
 .form-control {
     display: block;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    border: 1px solid #DDD;
     border-radius: 5px;
     padding: 10px;
     background-color: #FFF;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.form-control:focus {
+    z-index: 1;
+    transform: scale(1.1);
+    border: 1px solid #3baea0;
+    outline: none;
 }
 
 .helptext {
@@ -229,6 +347,32 @@ form input, form select {
     margin: 30px auto 0 auto;
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+div.info-banner {
+    display: block;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px 10px;
+    background-color: #dee8eb;
+    border: 1px solid #7ea4b3;
+    border-radius: 10px;
+    color: #485e68;
+    text-align: center;
+}
+
+div.success-banner {
+    display: block;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    padding: 30px 10px;
+    background-color: #93e4c1;
+    border: 1px solid #3baea0;
+    border-radius: 10px;
+    color: #1f6f78;
+    text-align: center;
 }
 
 footer {

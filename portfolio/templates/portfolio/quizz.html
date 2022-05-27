@@ -8,20 +8,20 @@
         {% csrf_token %}
         <label>
             Como se chama?
-            <input type="text" class="form-control" name="nome" maxlength="100" placeholder="Escreva o seu nome">
+            <input type="text" class="form-control" name="nome" maxlength="100" placeholder="Escreva o seu nome" required>
         </label>
         <label>
             Qual a extensão utilizada para páginas HTML?
             <label for="cssExt">
-                <input type="radio" value=".css" name="extensao" id="cssExt">
+                <input type="radio" value=".css" name="extensao" id="cssExt" required>
                 .css
             </label>
             <label for="htmlExt">
-                <input type="radio" value=".html" name="extensao" id="htmlExt">
+                <input type="radio" value=".html" name="extensao" id="htmlExt" required>
                 .html
             </label>
             <label for="phpExt">
-                <input type="radio" value=".php" name="extensao" id="phpExt">
+                <input type="radio" value=".php" name="extensao" id="phpExt" required>
                 .php
             </label>
         </label>
@@ -29,26 +29,26 @@
         <label>
             Que tecnologia de backend foi ensinada em PW?
             <label for="css">
-                <input type="radio" value="css" name="tecnologias" id="css">
+                <input type="radio" value="css" name="tecnologias" id="css" required>
                 CSS
             </label>
             <label for="html">
-                <input type="radio" value="html" name="tecnologias" id="html">
+                <input type="radio" value="html" name="tecnologias" id="html" required>
                 HTML
             </label>
             <label for="py">
-                <input type="radio" value="py" name="tecnologias" id="py">
+                <input type="radio" value="py" name="tecnologias" id="py" required>
                 Python
             </label>
             <label for="js">
-                <input type="radio" value="js" name="tecnologias" id="js">
+                <input type="radio" value="js" name="tecnologias" id="js" required>
                 JavaScript
             </label>
         </label>
 
         <label>
             Python não necessita de ponto e vírgula:
-            <select class="form-control" name="pySemPontoVirgula">
+            <select class="form-control" name="pySemPontoVirgula" required>
                 <option hidden disabled selected>Escolha uma opção...</option>
                 <option value="true">Verdadeiro</option>
                 <option value="false">Falso</option>
@@ -57,7 +57,7 @@
 
         <label>
             Django é a base do WordPress:
-            <select class="form-control" name="djangoIsWordpress">
+            <select class="form-control" name="djangoIsWordpress" required>
                 <option hidden disabled selected>Escolha uma opção...</option>
                 <option value="true">Verdadeiro</option>
                 <option value="false">Falso</option>
@@ -66,7 +66,7 @@
 
         <label>
             Django tem suporte a base de dados:
-            <select class="form-control" name="djangoDB">
+            <select class="form-control" name="djangoDB" required>
                 <option hidden disabled selected>Escolha uma opção...</option>
                 <option value="true">Verdadeiro</option>
                 <option value="false">Falso</option>

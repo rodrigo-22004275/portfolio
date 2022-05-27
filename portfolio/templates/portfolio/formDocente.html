@@ -1,0 +1,22 @@
+<!-- formDocente.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Adicionar um docente</h3>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Gravar" class="btn btn-success" >
+    </form>
+
+    <div class="listagem">
+        {% for docente in docentes %}
+            <article>
+                <h1>{{ docente.nome }}</h1>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

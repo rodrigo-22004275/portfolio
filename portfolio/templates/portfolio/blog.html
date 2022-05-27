@@ -6,25 +6,32 @@
 	<h3 class="title">Blog</h3>
     <div class="listagem">
         {% for post in posts %}
-            <div>
-                <h1>{{ post.titulo }}</h1>
-                <p>{{ post.descricao }}<br /><i>Por {{ post.autor }},<br>
-                    {% if post.data.date == agora.date %}
-                        hoje
-                    {% else %}
-                        de {{ post.data.day }}/{{ post.data.month }} de {{ post.data.year }}
+            <article>
+                <img src="{{ post.imagem.url }}" alt="{{ post.imagem.name }}">
+                <div class="content">
+                    <p>
+                        <b>{{ post.titulo }}</b>
+                        {{ post.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>Por {{ post.autor }}<br>no dia
+                        {% if post.data.date == agora.date %}
+                            de hoje
+                        {% else %}
+                            {{ post.data.day }}/{{ post.data.month }} de {{ post.data.year }}
+                        {% endif %}
+                        às {{ post.data.hour }}:{{ post.data.minute }}
+                    </p>
+                    {% if post.link != '' %}
+                        <a href="{{ post.link }}">Saber mais</a>
                     {% endif %}
-                    às {{ post.data.hour }}:{{ post.data.minute }}
-                    </i>
-                </p>
-                {% if post.link != '' %}
-                    <a href="{{ post.link }}">Saber mais</a>
-                {% endif %}
-            </div>
+                </div>
+            </article>
         {% endfor %}
     </div>
 
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
 

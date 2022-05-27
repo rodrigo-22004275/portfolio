@@ -1,0 +1,27 @@
+<!-- login.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+
+    <h1>Login</h1>
+
+    {% if message %}
+      <p> {{ message }} </p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>
+            Nome de utilizador:
+            <input type="text" name="username" class="form-control" placeholder="Username">
+        </label>
+        <label>
+            Palavra-passe:
+            <input type="password" name="password" class="form-control" placeholder="Password">
+        </label>
+
+        <input type="submit" class="btn btn-success" value="Login">
+    </form>
+
+{% endblock %}

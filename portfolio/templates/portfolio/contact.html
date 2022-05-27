@@ -3,6 +3,32 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3>Titulo</h3>
-    <p>texto texto texto texto texto texto texto </p>
+	<h3>Contactar-me</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>
+            Nome:
+            <input type="text" class="form-control" name="nome" maxlength="100" placeholder="Escreva o seu nome" required>
+        </label>
+
+        <label>
+            Endereço eletrónico:
+            <input type="email" class="form-control" name="email" maxlength="100" placeholder="Escreva o seu e-mail" required>
+        </label>
+
+        <label>
+            Mensagem:
+            <textarea class="form-control" name="mensagem" placeholder="Escreva a sua mensagem" required></textarea>
+        </label>
+
+        <input type="submit" class="btn btn-success" value="Enviar mensagem">
+        <input type="reset" class="btn btn-reset" value="Limpar tudo">
+    </form>
+
+    {% if request.method == 'POST' %}
+        <div class="success-banner">
+            <p>Obrigado, irei responder assim que possível!</p>
+        </div>
+    {% endif %}
+
 {% endblock %}
