@@ -147,7 +147,7 @@ def form_docente_view(request):
     form = ProfessorForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('portfolio:sobremim'))
+        return HttpResponseRedirect(reverse('portfolio:aboutme'))
 
     context = {
         'form': form,
@@ -163,13 +163,13 @@ def add_view(request, tipo):
         link = 'blog'
     elif tipo == 'cadeira':
         form = CadeiraForm(request.POST or None, request.FILES or None)
-        link = 'sobremim'
+        link = 'aboutme'
     elif tipo == 'projeto':
         form = ProjetoForm(request.POST or None, request.FILES or None)
         link = 'projetos'
     elif tipo == 'educacao':
         form = EducacaoForm(request.POST or None, request.FILES or None)
-        link = 'sobremim'
+        link = 'aboutme'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -195,7 +195,7 @@ def edit_view(request, tipo, tipo_id):
     elif tipo == 'cadeira':
         objeto = Cadeira.objects.get(id=tipo_id)
         form = CadeiraForm(request.POST or None, request.FILES or None, instance=objeto)
-        link = 'sobremim'
+        link = 'aboutme'
     elif tipo == 'projeto':
         objeto = Projeto.objects.get(id=tipo_id)
         form = ProjetoForm(request.POST or None, request.FILES or None, instance=objeto)
@@ -203,7 +203,7 @@ def edit_view(request, tipo, tipo_id):
     elif tipo == 'educacao':
         objeto = Educacao.objects.get(id=tipo_id)
         form = EducacaoForm(request.POST or None, request.FILES or None, instance=objeto)
-        link = 'sobremim'
+        link = 'aboutme'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -229,13 +229,13 @@ def delete_view(request, tipo, tipo_id):
         return HttpResponseRedirect(reverse(f'portfolio:blog'))
     elif tipo == 'cadeira':
         Cadeira.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:sobremim'))
+        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
     elif tipo == 'projeto':
         Projeto.objects.get(id=tipo_id).delete()
         return HttpResponseRedirect(reverse(f'portfolio:projetos'))
     elif tipo == 'educacao':
         Educacao.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:sobremim'))
+        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
     elif tipo == 'docentes':
         Professor.objects.get(id=tipo_id).delete()
         return HttpResponseRedirect(reverse(f'portfolio:docentes'))
