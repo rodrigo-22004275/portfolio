@@ -6,20 +6,22 @@
     <title>Portfolio</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'portfolio/css/layout.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'portfolio/images/favicon.ico' %}">
+    <link rel="icon" type="image/x-png" href="{% static 'portfolio/images/favicon.png' %}">
 </head>
 <body>
 <header>
     <div>Rodrigo Félix</div>
     <nav>
         <a href="{% url 'portfolio:home' %}">Inicio</a>
-        <a href="{% url 'portfolio:blog' %}">Blog</a>
+        <a href="{% url 'portfolio:aboutme' %}">Sobre mim</a>
         <a href="{% url 'portfolio:projects' %}">Projetos</a>
-        <a href="{% url 'portfolio:licenciatura' %}">Licenciatura</a>
+        <a href="{% url 'portfolio:blog' %}">Blog</a>
         <a href="{% url 'portfolio:quizz' %}">Quizz</a>
         <a href="{% url 'portfolio:contact' %}">Contacto</a>
         {%  if request.user.is_authenticated %}
             <a href="{% url 'portfolio:logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'portfolio:login' %}">Login</a>
         {% endif %}
     </nav>
 </header>

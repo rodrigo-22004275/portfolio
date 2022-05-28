@@ -3,10 +3,17 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Projetos <a class="add-btn" href="#add">Adicionar +</a></h3>
+	<h3 class="title">Projetos
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='projeto' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
     <div class="listagem">
         {% for pj in projetos %}
             <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='projeto' tipo_id=pj.id %}">Editar</a>
+                {% endif %}
                 <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
                 <div class="content">
                     <p>
@@ -23,47 +30,4 @@
             </article>
         {% endfor %}
     </div>
-
-    {%  if request.user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data" id="add">
-            {% csrf_token %}
-            <label>
-                Título do projeto
-                <input type="text" class="form-control" name="titulo" maxlength="100" placeholder="Escreva o título do projeto" required>
-            </label>
-
-            <label>
-                Descrição do projeto
-                <textarea class="form-control" name="descricao" placeholder="Descreva o projeto" required></textarea>
-            </label>
-
-            <label>
-                Imagem de apresentação
-                <input type="file" class="form-control" name="imagem" accept="image/*">
-            </label>
-
-            <label>
-                Realizado em que cadeira?
-                <input class="form-control" name="cadeira" placeholder="Escreva uma cadeira" autocomplete="off" list="cadeiras" required />
-                <span class="helptext">Pode adicionar mais cadeiras <a href="{% url 'portfolio:licenciatura' %}">aqui</a></span>
-            </label>
-            <datalist id="cadeiras">
-                {% for cadeira in cadeiras %}
-                    <option value="{{ cadeira.nome }}">
-                {% endfor %}
-            </datalist>
-
-            <label>
-                Link de visita
-                <input type="url" class="form-control" name="link" placeholder="Insira um link do GitHub, Heroku, etc.">
-            </label>
-
-            <input type="submit" class="btn btn-success" value="Adicionar projeto">
-            <input type="reset" class="btn btn-reset" value="Limpar tudo">
-        </form>
-    {% else %}
-        <div class="info-banner" id="add">
-            <p>Poderá adicionar mais conteúdo fazendo login <a href="{% url 'portfolio:login' %}">aqui</a></p>
-        </div>
-    {% endif %}
 {% endblock %}

@@ -11,10 +11,13 @@ urlpatterns = [
     path('', views.home_page_view, name='home'),
     path('blog', views.blog_page_view, name='blog'),
     path('projects', views.projects_page_view, name='projects'),
-    path('licenciatura', views.uni_page_view, name='licenciatura'),
+    path('aboutme', views.about_me_view, name='aboutme'),
     path('adicionarDocente', views.form_docente_view, name='docentes'),
     path('quizz', views.quizz_page_view, name='quizz'),
     path('contact', views.contact_page_view, name='contact'),
+    path('novo/<str:tipo>', views.add_view, name='novo'),
+    path('editar/<str:tipo>/<int:tipo_id>', views.edit_view, name='editar'),
     path('login', views.view_login, name='login'),
-    path('logout', views.view_logout, name='logout')
+    path('logout', views.view_logout, name='logout'),
+    path('404', views.view_404, name='404')
 ]

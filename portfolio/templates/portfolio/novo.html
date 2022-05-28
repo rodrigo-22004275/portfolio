@@ -1,0 +1,16 @@
+<!-- contact.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Adicionar: {{ tipo }}</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+        <label>Tudo preenchido?</label>
+        <input type="submit" class="btn btn-success" value="Adicionar">
+        <input type="reset" class="btn btn-reset" value="Limpar tudo">
+    </form>
+
+{% endblock %}

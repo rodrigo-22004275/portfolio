@@ -6,8 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from portfolio.forms import PostForm, ProfessorForm
-from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem
+from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm
+from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao
 
 from matplotlib import pyplot as plt
 
@@ -54,32 +54,15 @@ def home_page_view(request):
     return render(request, 'portfolio/home.html', context)
 
 
-def uni_page_view(request):
-    if request.method == 'POST':
-        Cadeira(nome=request.POST['nome'],
-                ano=request.POST['ano'],
-                semestre=request.POST['semestre'],
-                ects=request.POST['ects'],
-                descricao=request.POST['descricao'],
-                imagem=request.FILES['imagem'],
-                docente_teorica=Professor.objects.get(nome=request.POST['docente_teorica']),
-                docente_pratica=Professor.objects.get(nome=request.POST['docente_pratica'])).save()
-
+def about_me_view(request):
     context = {
         'cadeiras': Cadeira.objects.all().order_by('ano', 'semestre', 'nome', 'ects'),
-        'docentes': Professor.objects.all().order_by('nome')
+        'escolas': Educacao.objects.all().order_by('-anos')
     }
-    return render(request, 'portfolio/licenciatura.html', context)
+    return render(request, 'portfolio/sobremim.html', context)
 
 
 def projects_page_view(request):
-    if request.method == 'POST' and request.user.is_authenticated:
-        Projeto(titulo=request.POST['titulo'],
-                descricao=request.POST['descricao'],
-                cadeira=Cadeira.objects.get(nome=request.POST['cadeira']),
-                imagem=request.FILES['imagem'],
-                link=request.POST['link']).save()
-
     context = {
         'projetos': Projeto.objects.all()
     }
@@ -164,10 +147,78 @@ def form_docente_view(request):
     form = ProfessorForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('portfolio:licenciatura'))
+        return HttpResponseRedirect(reverse('portfolio:sobremim'))
 
     context = {
         'form': form,
         'docentes': Professor.objects.all().order_by('nome')
     }
     return render(request, 'portfolio/formDocente.html', context)
+
+
+@login_required
+def add_view(request, tipo):
+    if tipo == 'post':
+        form = PostForm(request.POST or None, request.FILES or None)
+        link = 'blog'
+    elif tipo == 'cadeira':
+        form = CadeiraForm(request.POST or None, request.FILES or None)
+        link = 'sobremim'
+    elif tipo == 'projeto':
+        form = ProjetoForm(request.POST or None, request.FILES or None)
+        link = 'projetos'
+    elif tipo == 'educacao':
+        form = EducacaoForm(request.POST or None, request.FILES or None)
+        link = 'sobremim'
+    elif tipo == 'docentes':
+        return HttpResponseRedirect(reverse('portfolio:docentes'))
+    else:
+        return HttpResponseRedirect(reverse('portfolio:404'))
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse(f'portfolio:{link}'))
+
+    context = {
+        'tipo': tipo.capitalize(),
+        'form': form
+    }
+    return render(request, 'portfolio/novo.html', context)
+
+
+@login_required
+def edit_view(request, tipo, tipo_id):
+    if tipo == 'post':
+        objeto = Postagem.objects.get(id=tipo_id)
+        form = PostForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'blog'
+    elif tipo == 'cadeira':
+        objeto = Cadeira.objects.get(id=tipo_id)
+        form = CadeiraForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'sobremim'
+    elif tipo == 'projeto':
+        objeto = Projeto.objects.get(id=tipo_id)
+        form = ProjetoForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'projetos'
+    elif tipo == 'educacao':
+        objeto = Educacao.objects.get(id=tipo_id)
+        form = EducacaoForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'sobremim'
+    elif tipo == 'docentes':
+        return HttpResponseRedirect(reverse('portfolio:docentes'))
+    else:
+        return HttpResponseRedirect(reverse('portfolio:404'))
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse(f'portfolio:{link}'))
+
+    context = {
+        'tipo': tipo.capitalize(),
+        'form': form
+    }
+    return render(request, 'portfolio/edit.html', context)
+
+
+def view_404(request):
+    return render(request, 'portfolio/404.html')

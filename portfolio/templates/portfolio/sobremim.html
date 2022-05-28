@@ -1,0 +1,57 @@
+<!-- licenciatura.html -->
+
+{% extends 'portfolio/layout.html' %}
+
+{% block main %}
+	<h3 class="title">Universidade
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='cadeira' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+
+    <div class="listagem">
+        {% for cadeira in cadeiras %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='cadeira' tipo_id=cadeira.id %}">Editar</a>
+                {% endif %}
+                <img src="{{ cadeira.imagem.url }}" alt="{{ cadeira.imagem.name }}">
+                <div class="content">
+                    <p>
+                        <b>{{ cadeira.nome }}</b>
+                        Lecionada por {{ cadeira.docente_teorica.nome }} e {{ cadeira.docente_pratica.nome }}
+                        <br><br>
+                        {{ cadeira.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>{{ cadeira.ano }}º ano | {{ cadeira.semestre }}º semestre | {{ cadeira.ects }} ects</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+    <h3 class="title">Educação <a class="add-btn" href="{% url 'portfolio:novo' tipo='educacao' %}">Adicionar +</a></h3>
+    <div class="listagem">
+        {% for escola in escolas %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='educacao' tipo_id=escola.id %}">Editar</a>
+                {% endif %}
+                <img src="{{ escola.imagem.url }}" alt="{{ escola.imagem.name }}">
+                <div class="content">
+
+                    <p>
+                        <b>{{ escola.nome }}</b>
+                        {{ escola.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>{{ cadeira.ano }} | Certificação de nível {{ escola.certificacaoNivel }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}

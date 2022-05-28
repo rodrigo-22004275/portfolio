@@ -37,13 +37,13 @@ class Professor(models.Model):
 
 class Cadeira(models.Model):
     nome = models.CharField(max_length=100)
-    ano = models.IntegerField()
-    semestre = models.IntegerField()
-    ects = models.IntegerField(default=6)
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='cadeiras/', blank=True)
     docente_teorica = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='docente_teorica')
     docente_pratica = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='docente_pratica')
+    ano = models.IntegerField()
+    semestre = models.IntegerField()
+    ects = models.IntegerField(default=0)
 
     def __str__(self):
         return self.nome[:50]
@@ -58,6 +58,18 @@ class Projeto(models.Model):
 
     def __str__(self):
         return self.titulo[:50]
+
+
+class Educacao(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='educacao/', blank=True)
+    anos = models.CharField(max_length=100)
+    certificacaoNivel = models.IntegerField()
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nome[:50]
 
 
 class Mensagem(models.Model):
