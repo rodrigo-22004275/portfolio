@@ -56,7 +56,7 @@ def home_page_view(request):
 
 def about_me_view(request):
     context = {
-        'cadeiras': Cadeira.objects.all().order_by('ano', 'semestre', 'nome', 'ects'),
+        'cadeiras': Cadeira.objects.all().order_by('-ano', '-semestre', 'nome', '-ects'),
         'escolas': Educacao.objects.all().order_by('-anos')
     }
     return render(request, 'portfolio/sobremim.html', context)
