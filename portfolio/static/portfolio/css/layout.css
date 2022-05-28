@@ -305,8 +305,8 @@ main {
     align-items: center;
     font-size: 0.8em;
     -webkit-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
-  -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
-  box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+      -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+      box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
 }
 
 .listagem article > .author > a {
@@ -321,6 +321,16 @@ main {
 .listagem article > .author > a:hover {
     background-color: #CDCDCD;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+.list-small > article {
+    height: auto;
+    transition: none;
+}
+
+.list-small > article:hover {
+    transform: none;
+
 }
 
 form {
