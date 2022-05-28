@@ -215,9 +215,32 @@ def edit_view(request, tipo, tipo_id):
 
     context = {
         'tipo': tipo.capitalize(),
+        'tipo_normal': tipo,
+        'id': tipo_id,
         'form': form
     }
     return render(request, 'portfolio/edit.html', context)
+
+
+@login_required
+def delete_view(request, tipo, tipo_id):
+    if tipo == 'post':
+        Postagem.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:blog'))
+    elif tipo == 'cadeira':
+        Cadeira.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:sobremim'))
+    elif tipo == 'projeto':
+        Projeto.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:projetos'))
+    elif tipo == 'educacao':
+        Educacao.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:sobremim'))
+    elif tipo == 'docentes':
+        Professor.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:docentes'))
+    else:
+        return HttpResponseRedirect(reverse('portfolio:404'))
 
 
 def view_404(request):

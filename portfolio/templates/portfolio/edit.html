@@ -9,7 +9,8 @@
         {{ form.as_p }}
         <br>
         <label>Tudo retificado?</label>
-        <input type="submit" class="btn btn-success" value="Adicionar">
+        <input type="submit" class="btn btn-success" value="Gravar e editar">
+        <a class="btn btn-danger" href="{% url 'portfolio:apagar' tipo=tipo_normal tipo_id=id %}">Apagar</a>
         <input type="reset" class="btn btn-reset" value="Limpar tudo">
     </form>
 
