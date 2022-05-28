@@ -50,6 +50,9 @@
                 </div>
                 <div class="author">
                     <p>{{ escola.anos }} | Certificação de nível {{ escola.certificacaoNivel }}</p>
+                    {% if post.link != '' %}
+                        <a href="{{ post.link }}">Detalhes</a>
+                    {% endif %}
                 </div>
             </article>
         {% endfor %}
