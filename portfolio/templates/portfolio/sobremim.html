@@ -3,7 +3,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Universidade
+	<h3 class="title" id="uni">Universidade
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='cadeira' %}">Adicionar +</a>
         {% endif %}
@@ -33,7 +33,7 @@
 
     <br><br>
 
-    <h3 class="title">Educação
+    <h3 class="title" id="edu">Educação
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='educacao' %}">Adicionar +</a>
         {% endif %}
@@ -64,7 +64,7 @@
 
     <br><br>
 
-    <h3 class="title">Certificações
+    <h3 class="title" id="cert">Certificações
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='certificacao' %}">Adicionar +</a>
         {% endif %}

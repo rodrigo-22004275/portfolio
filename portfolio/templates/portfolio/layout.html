@@ -13,7 +13,14 @@
     <div>Rodrigo Félix</div>
     <nav>
         <a href="{% url 'portfolio:home' %}">Inicio</a>
-        <a href="{% url 'portfolio:aboutme' %}">Sobre mim</a>
+        <div class="dp">
+            <a href="{% url 'portfolio:aboutme' %}" class="aboutme">Sobre mim</a>
+            <div class="dropdown drop-aboutme">
+                <a href="{% url 'portfolio:aboutme' %}#uni">Universidade</a>
+                <a href="{% url 'portfolio:aboutme' %}#edu">Educação</a>
+                <a href="{% url 'portfolio:aboutme' %}#cert">Certificações</a>
+            </div>
+        </div>
         <a href="{% url 'portfolio:projects' %}">Projetos</a>
         <a href="{% url 'portfolio:blog' %}">Blog</a>
         <a href="{% url 'portfolio:quizz' %}">Quizz</a>
