@@ -23,7 +23,7 @@
                 </div>
                 <div class="author">
                     <p>Cadeira de {{ pj.cadeira.nome }}</p>
-                    {% if pj.link != '' %}
+                    {% if pj.link != None %}
                         <a href="{{ pj.link }}">Ver projeto</a>
                     {% endif %}
                 </div>

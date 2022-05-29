@@ -54,7 +54,7 @@
                 </div>
                 <div class="author">
                     <p>{{ escola.anos }} | Certificação de nível {{ escola.certificacaoNivel }}</p>
-                    {% if escola.link != '' %}
+                    {% if escola.link != None %}
                         <a href="{{ escola.link }}">Detalhes</a>
                     {% endif %}
                 </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="author">
                     <p>{{ ct.data.month }}/{{ ct.data.year }} em {{ ct.local }}</p>
-                    {% if ct.link != '' %}
+                    {% if ct.link != None %}
                         <a href="{{ ct.link }}">Detalhes</a>
                     {% endif %}
                 </div>
