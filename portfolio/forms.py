@@ -1,4 +1,3 @@
-from Tools.scripts.make_ctype import values
 from django import forms
 from django.forms import ModelForm
 from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao, ProjetoHobby
