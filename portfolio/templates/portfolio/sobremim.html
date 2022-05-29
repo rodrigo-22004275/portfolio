@@ -83,4 +83,31 @@
             </article>
         {% endfor %}
     </div>
+
+    <br><br>
+
+    <h3 class="title">Educação <a class="add-btn" href="{% url 'portfolio:novo' tipo='certificacao' %}">Adicionar +</a></h3>
+    <div class="listagem">
+        {% for escola in escolas %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='certificacao' tipo_id=escola.id %}">Editar</a>
+                {% endif %}
+                <img src="{{ escola.imagem.url }}" alt="{{ escola.imagem.name }}">
+                <div class="content">
+
+                    <p>
+                        <b>{{ escola.nome }}</b>
+                        {{ escola.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>{{ escola.anos }} | Certificação de nível {{ escola.certificacaoNivel }}</p>
+                    {% if post.link != '' %}
+                        <a href="{{ post.link }}">Detalhes</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
 {% endblock %}
