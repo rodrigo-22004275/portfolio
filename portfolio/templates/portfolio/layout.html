@@ -28,8 +28,17 @@
                 <a href="{% url 'portfolio:projects' %}#auto">Autónomos</a>
             </div>
         </div>
+        <div class="dp">
+            <a href="{% url 'portfolio:web' %}">Web</a>
+            <div class="dropdown drop-web">
+                <a href="{% url 'portfolio:web' %}#tech">Tecnologias existentes</a>
+                <a href="{% url 'portfolio:web' %}#about">Sobre este website</a>
+                <a href="{% url 'portfolio:web' %}#news">Notícias</a>
+                <a href="{% url 'portfolio:web' %}#examples">Exemplos</a>
+                <a href="{% url 'portfolio:web' %}#quizz">Quizz</a>
+            </div>
+        </div>
         <a href="{% url 'portfolio:blog' %}">Blog</a>
-        <a href="{% url 'portfolio:quizz' %}">Quizz</a>
         <a href="{% url 'portfolio:contact' %}">Contacto</a>
         {%  if request.user.is_authenticated %}
             <a href="{% url 'portfolio:logout' %}">Logout</a>

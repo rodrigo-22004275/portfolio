@@ -3,7 +3,14 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Quizz de PW</h3>
+    <h3 class="title" id="tech">Tecnologias existentes</h3>
+    <div class="tech">
+
+    </div>
+
+    <br><br>
+
+	<h3 class="title" id="quizz">Quizz de PW</h3>
     <form method="post">
         {% csrf_token %}
         <label>

@@ -96,6 +96,45 @@ class Certificacao(models.Model):
         return self.tipo[:50]
 
 
+class Tecnologia(models.Model):
+    nome = models.CharField(max_length=100)
+    acronimo = models.CharField(max_length=100, null=True, blank=True)
+    anoCriacao = models.CharField(max_length=4)
+    criador = models.CharField(max_length=100)
+    descricao = models.TextField()
+    presentationlayer = models.CharField(max_length=100)
+    logotipo = models.ImageField(upload_to='tecnologias/', blank=True)
+    data = models.DateTimeField()
+    usado = models.BooleanField(default=False)
+    formaUso = models.TextField(null=True, blank=True)
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.nome[:50]
+
+
+class Laboratorio(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.titulo[:50]
+
+
+class Comentario(models.Model):
+    titulo = models.CharField(max_length=200)
+    descricao = models.TextField()
+    avaliacao = models.CharField(max_length=2)
+    imagem = models.ImageField(upload_to='comentarios/', blank=True)
+    link = models.URLField(blank=True)
+    autor = models.CharField(max_length=100)
+    data = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.titulo[:50]
+
+
 class Mensagem(models.Model):
     nome = models.CharField(max_length=100)
     email = models.CharField(max_length=100)

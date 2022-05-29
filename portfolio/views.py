@@ -90,7 +90,7 @@ def blog_page_view(request):
     return render(request, 'portfolio/blog.html', context)
 
 
-def quizz_page_view(request):
+def web_page_view(request):
     if request.method == 'POST' and request.user.is_authenticated:
         n = request.POST['nome']
         p = pontuacao_quizz(request)
@@ -98,7 +98,7 @@ def quizz_page_view(request):
         r.save()
         desenha_grafico_resultados()
 
-    return render(request, 'portfolio/quizz.html')
+    return render(request, 'portfolio/web.html')
 
 
 def pontuacao_quizz(request):
