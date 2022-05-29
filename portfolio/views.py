@@ -58,7 +58,7 @@ def about_me_view(request):
     context = {
         'cadeiras': Cadeira.objects.all().order_by('-ano', '-semestre', 'nome', '-ects'),
         'escolas': Educacao.objects.all().order_by('-certificacaoNivel'),
-        'certificacao': Certificacao.objects.all().order_by('-data', 'nome')
+        'certificacao': Certificacao.objects.all().order_by('-data', 'tipo')
     }
     return render(request, 'portfolio/sobremim.html', context)
 
@@ -82,14 +82,8 @@ def contact_page_view(request):
 
 
 def blog_page_view(request):
-    form = PostForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('portfolio:blog'))
-
     context = {
         'posts': Postagem.objects.all().order_by('-data'),
-        'form': form,
         'agora': datetime.datetime.now(),
     }
     return render(request, 'portfolio/blog.html', context)
