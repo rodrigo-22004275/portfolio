@@ -184,7 +184,7 @@ class CertificacaoForm(ModelForm):
                 attrs={'class': 'form-control', 'placeholder': 'Descreva esta certificação', 'required': 'true'}),
             'imagem': forms.FileInput(
                 attrs={'class': 'form-control', 'required': 'true'}),
-            'data': forms.DateField(
+            'data': forms.DateInput(
                 attrs={'class': 'form-control', 'placeholder': 'Data da certificação', 'required': 'true'}),
             'link': forms.URLInput(
                 attrs={'class': 'form-control', 'placeholder': 'Link para mais detalhes', 'autocomplete': 'off'}),
