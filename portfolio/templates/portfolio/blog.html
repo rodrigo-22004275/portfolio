@@ -8,13 +8,18 @@
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='post' %}">Adicionar +</a>
         {% endif %}
     </h3>
+    {% load static %}
     <div class="listagem">
         {% for post in posts %}
             <article>
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='post' tipo_id=post.id %}">Editar</a>
                 {% endif %}
-                <img src="{{ post.imagem.url }}" alt="{{ post.imagem.name }}">
+                {% if post.imagem %}
+                    <img src="{{ post.imagem.url }}" alt="{{ post.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
                     <p>
                         <b>{{ post.titulo }}</b>

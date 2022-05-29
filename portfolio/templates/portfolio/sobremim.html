@@ -8,14 +8,18 @@
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='cadeira' %}">Adicionar +</a>
         {% endif %}
     </h3>
-
+    {% load static %}
     <div class="listagem">
         {% for cadeira in cadeiras %}
             <article>
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='cadeira' tipo_id=cadeira.id %}">Editar</a>
                 {% endif %}
-                <img src="{{ cadeira.imagem.url }}" alt="{{ cadeira.imagem.name }}">
+                {% if cadeira.imagem %}
+                    <img src="{{ cadeira.imagem.url }}" alt="{{ cadeira.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
                     <p>
                         <b>{{ cadeira.nome }}</b>
@@ -44,7 +48,11 @@
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='educacao' tipo_id=escola.id %}">Editar</a>
                 {% endif %}
-                <img src="{{ escola.imagem.url }}" alt="{{ escola.imagem.name }}">
+                {% if escola.imagem %}
+                    <img src="{{ escola.imagem.url }}" alt="{{ escola.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
 
                     <p>
@@ -75,7 +83,11 @@
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='certificacao' tipo_id=ct.id %}">Editar</a>
                 {% endif %}
-                <img src="{{ ct.imagem.url }}" alt="{{ ct.imagem.name }}">
+                {% if ct.imagem %}
+                    <img src="{{ ct.imagem.url }}" alt="{{ ct.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
                     <p>
                         <b>{{ ct.tipo }}</b>

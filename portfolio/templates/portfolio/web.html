@@ -3,9 +3,160 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-    <h3 class="title" id="tech">Tecnologias existentes</h3>
-    <div class="tech">
+    <h3 class="title" id="tech">Tecnologias existentes
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='tecnologia' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+    {% load static %}
+    <div class="listagem">
+        {% for tech in tecnologias %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='tecnologia' tipo_id=tech.id %}">Editar</a>
+                {% endif %}
+                {% if tech.logotipo %}
+                    <img src="{{ tech.logotipo.url }}" alt="{{ tech.logotipo.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
+                <div class="content">
+                    <p>
+                        <b>{% if tech.acronimo %}{{ tech.acronimo }} - {% endif %}{{ tech.nome }}</b>
+                        {{ tech.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p> Tecnologia {{ tech.presentationlayer }} criada em {{ tech.anoCriacao }}<br>por {{ tech.criador }}</p>
+                    {% if tech.link %}
+                        <a href="{{ tech.link }}">Website oficial</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
 
+    <br><br>
+
+    <h3 class="title" id="labs">Laboratórios
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='laboratorio' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+    <div class="listagem list-small">
+        {% for lab in labs %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='laboratorio' tipo_id=lab.id %}">Editar</a>
+                {% endif %}
+                <p>
+                    <b>{{ lab.titulo }}</b>
+                    {{ lab.descricao }}
+                </p>
+                <a class="link" href="{{ lab.link }}">Ver no Heroku</a>
+            </article>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+    <h3 class="title" id="news">Notícias
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='noticia' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+    <div class="listagem">
+        {% for obj in noticias %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='noticia' tipo_id=obj.id %}">Editar</a>
+                {% endif %}
+                {% if obj.imagem %}
+                    <img src="{{ obj.imagem.url }}" alt="{{ obj.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
+                <div class="content">
+                    <p>
+                        <b>{{ obj.titulo }}</b>
+                        {{ obj.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>Fonte:
+                        <span style="font-variant: small-caps">medium.com</span></p>
+                    {% if obj.link %}
+                        <a href="{{ obj.link }}">Notícia completa</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+    <h3 class="title" id="news">Sobre deste website</h3>
+    <h3 class="sub-title">━ Base de dados e a sua modelação</h3>
+    <section id="modelo-er">
+        <p>Tirou-se partido da tecnologia PostgreSQL para criar, modelar e armazenar dados neste criados e apresentados neste website.</p>
+        <img src="{% static 'portfolio/images/modelo-er.png' %}" alt="Modelo E-R">
+    </section>
+    <h3 class="sub-title">━ Tecnologias usadas na criação do website</h3>
+    <div class="listagem">
+        {% for tech in techUsada %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='tecnologia' tipo_id=tech.id %}">Editar</a>
+                {% endif %}
+                {% if tech.logotipo %}
+                    <img src="{{ tech.logotipo.url }}" alt="{{ tech.logotipo.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
+                <div class="content">
+                    <p>
+                        <b>{% if tech.acronimo %}{{ tech.acronimo }} - {% endif %}{{ tech.nome }}</b>
+                        {{ tech.formaUso }}<br>
+                        {{ tech.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p> Tecnologia utilizada em {{ tech.presentationlayer }}</p>
+                    {% if tech.link %}
+                        <a href="{{ tech.link }}">Website oficial</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+    <h3 class="sub-title">━ Comentários de visitantes
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='comentario' %}">Adicionar um comentário</a>
+        {% endif %}
+    </h3>
+    <div class="listagem list-comentarios">
+        {% for obj in comentarios %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:apagar' tipo='comentario' tipo_id=obj.id %}">Apagar</a>
+                {% endif %}
+                <div class="header">
+                    {% if obj.imagem %}
+                        <img src="{{ obj.imagem.url }}" alt="{{ obj.imagem.name }}">
+                    {% else %}
+                        <img src="{% static 'portfolio/images/default-user.png' %}" alt="Default user">
+                    {% endif %}
+                    <p>{{ obj.autor }}<br><span>No dia {{ obj.data.day }}/{{ obj.data.month }}/{{ obj.data.year }}</span></p>
+                    <span><b>{{ obj.avaliacao }}</b> / 10 estrelas</span>
+                </div>
+                <div class="content">
+                    <p>
+                        <b>{{ obj.titulo }}</b>
+                        {{ obj.descricao }}
+                    </p>
+                </div>
+            </article>
+        {% endfor %}
     </div>
 
     <br><br>

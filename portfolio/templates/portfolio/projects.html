@@ -8,13 +8,18 @@
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='projeto' %}">Adicionar +</a>
         {% endif %}
     </h3>
+    {% load static %}
     <div class="listagem">
         {% for pj in projetos %}
             <article>
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='projeto' tipo_id=pj.id %}">Editar</a>
                 {% endif %}
-                <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                {% if pj.imagem %}
+                    <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
                     <p>
                         <b>{{ pj.titulo }}</b>
@@ -49,7 +54,11 @@
                 {% else %}
                     <p class="status offline">Offline</p>
                 {% endif %}
-                <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                {% if pj.imagem %}
+                    <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
                 <div class="content">
                     <p>
                         <b>{{ pj.titulo }}</b>

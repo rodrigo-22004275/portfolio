@@ -6,8 +6,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm, CertificacaoForm, ProjetoHobbyForm
-from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao, Certificacao, ProjetoHobby
+from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm, CertificacaoForm, \
+    ProjetoHobbyForm, TecnologiaForm, LaboratorioForm, NoticiaForm, ComentarioForm
+from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao, Certificacao, \
+    ProjetoHobby, Tecnologia, Laboratorio, Noticia, Comentario
 
 from matplotlib import pyplot as plt
 
@@ -98,7 +100,15 @@ def web_page_view(request):
         r.save()
         desenha_grafico_resultados()
 
-    return render(request, 'portfolio/web.html')
+    context = {
+        'tecnologias': Tecnologia.objects.all().order_by('presentationlayer', '-anoCriacao'),
+        'labs': Laboratorio.objects.all().order_by('titulo'),
+        'noticias': Noticia.objects.all().order_by('titulo'),
+        'techUsada': Tecnologia.objects.all().filter(usado=True).order_by('presentationlayer', '-anoCriacao'),
+        'comentarios': Comentario.objects.all().order_by('-data')
+    }
+
+    return render(request, 'portfolio/web.html', context)
 
 
 def pontuacao_quizz(request):
@@ -172,6 +182,18 @@ def add_view(request, tipo):
     elif tipo == 'certificacao':
         form = CertificacaoForm(request.POST or None, request.FILES or None)
         link = 'aboutme'
+    elif tipo == 'tecnologia':
+        form = TecnologiaForm(request.POST or None, request.FILES or None)
+        link = 'web'
+    elif tipo == 'laboratorio':
+        form = LaboratorioForm(request.POST or None, request.FILES or None)
+        link = 'web'
+    elif tipo == 'noticia':
+        form = NoticiaForm(request.POST or None, request.FILES or None)
+        link = 'web'
+    elif tipo == 'comentario':
+        form = ComentarioForm(request.POST or None, request.FILES or None)
+        link = 'web'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -214,6 +236,18 @@ def edit_view(request, tipo, tipo_id):
         objeto = Certificacao.objects.get(id=tipo_id)
         form = CertificacaoForm(request.POST or None, request.FILES or None, instance=objeto)
         link = 'aboutme'
+    elif tipo == 'tecnologia':
+        objeto = Tecnologia.objects.get(id=tipo_id)
+        form = TecnologiaForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'web'
+    elif tipo == 'laboratorio':
+        objeto = Laboratorio.objects.get(id=tipo_id)
+        form = LaboratorioForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'web'
+    elif tipo == 'noticia':
+        objeto = Noticia.objects.get(id=tipo_id)
+        form = NoticiaForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'web'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -236,25 +270,37 @@ def edit_view(request, tipo, tipo_id):
 def delete_view(request, tipo, tipo_id):
     if tipo == 'post':
         Postagem.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:blog'))
+        return HttpResponseRedirect(reverse('portfolio:blog'))
     elif tipo == 'cadeira':
         Cadeira.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
+        return HttpResponseRedirect(reverse('portfolio:aboutme'))
     elif tipo == 'projeto':
         Projeto.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:projects'))
+        return HttpResponseRedirect(reverse('portfolio:projects'))
     elif tipo == 'hobby':
         ProjetoHobby.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:projects'))
+        return HttpResponseRedirect(reverse('portfolio:projects'))
     elif tipo == 'educacao':
         Educacao.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
+        return HttpResponseRedirect(reverse('portfolio:aboutme'))
     elif tipo == 'certificacao':
         Certificacao.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
+        return HttpResponseRedirect(reverse('portfolio:aboutme'))
+    elif tipo == 'tecnologia':
+        Tecnologia.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse('portfolio:web'))
+    elif tipo == 'laboratorio':
+        Laboratorio.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse('portfolio:web'))
+    elif tipo == 'noticia':
+        Noticia.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse('portfolio:web'))
+    elif tipo == 'comentario':
+        Comentario.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse('portfolio:web'))
     elif tipo == 'docentes':
         Professor.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:docentes'))
+        return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
         return HttpResponseRedirect(reverse('portfolio:404'))
 

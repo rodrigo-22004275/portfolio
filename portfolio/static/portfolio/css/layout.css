@@ -79,6 +79,8 @@ nav .dp {
 nav .dropdown {
     display: none;
     position: absolute;
+    width: auto;
+    max-width: 200%;
     top: 100%;
     border-radius: 10px;
     padding: 0;
@@ -211,6 +213,12 @@ main {
     padding: 20px 30px;
     border-radius: 50px;
     font-size: 2em;
+}
+
+.sub-title {
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.5em;
 }
 
 .add-btn {
@@ -407,7 +415,92 @@ main {
 
 .list-small > article:hover {
     transform: none;
+}
 
+.list-small > article > p {
+    padding-bottom: 25px;
+}
+
+.list-small > article > p > b {
+    display: block;
+    padding: 5px 0 15px 0;
+    font-size: 1.5em;
+}
+
+.list-small article > a.link {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-decoration: none;
+    color: #333;
+    background-color: #DFDFDF;
+    border-radius: 10px;
+    padding: 5px 10px;
+}
+
+.list-small article > .edit {
+    top: 10px;
+    right: 10px;
+    backdrop-filter: none;
+    color: #333;
+    background-color: #DFDFDF;
+}
+
+.list-comentarios > article {
+    height: 250px;
+}
+
+.list-comentarios > article > .header {
+    position: relative;
+    display: flex;
+    max-height: 40%;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #DDD;
+}
+
+.list-comentarios > article > .header > img{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.list-comentarios > article > .header > p{
+    margin-left: 10px;
+}
+
+.list-comentarios > article > .header > p > span{
+    font-size: 0.8em;
+    color: #999;
+}
+
+.list-comentarios > article > .header > span{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.8em;
+}
+
+.list-comentarios > article > .header > span > b{
+    font-size: 1.3em;
+}
+
+.list-comentarios article > .content{
+    width: 100%;
+    height: 60%;
+    margin-top: 5%;
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.list-comentarios article > .content > p{
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 5%;
 }
 
 form {
@@ -558,6 +651,21 @@ div.success-banner {
 
 .socials > .logos img:hover {
     transform: scale(1.2);
+}
+
+#modelo-er {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    padding: 20px 5%;
+    text-align: center;
+}
+
+#modelo-er img{
+    max-width: 100%;
+    max-height: 700px;
+    margin-top: 20px;
+    border-radius: 20px;
 }
 
 footer {

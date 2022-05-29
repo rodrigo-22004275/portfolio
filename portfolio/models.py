@@ -104,7 +104,6 @@ class Tecnologia(models.Model):
     descricao = models.TextField()
     presentationlayer = models.CharField(max_length=100)
     logotipo = models.ImageField(upload_to='tecnologias/', blank=True)
-    data = models.DateTimeField()
     usado = models.BooleanField(default=False)
     formaUso = models.TextField(null=True, blank=True)
     link = models.URLField(null=True, blank=True)
@@ -116,7 +115,17 @@ class Tecnologia(models.Model):
 class Laboratorio(models.Model):
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
-    link = models.URLField(null=True, blank=True)
+    link = models.URLField()
+
+    def __str__(self):
+        return self.titulo[:50]
+
+
+class Noticia(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='noticias/', blank=True)
+    link = models.URLField()
 
     def __str__(self):
         return self.titulo[:50]
@@ -127,7 +136,6 @@ class Comentario(models.Model):
     descricao = models.TextField()
     avaliacao = models.CharField(max_length=2)
     imagem = models.ImageField(upload_to='comentarios/', blank=True)
-    link = models.URLField(blank=True)
     autor = models.CharField(max_length=100)
     data = models.DateTimeField(auto_now_add=True)
 

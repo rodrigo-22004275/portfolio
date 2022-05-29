@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao, ProjetoHobby
+from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao, ProjetoHobby, Tecnologia, \
+    Laboratorio, Noticia, Comentario
 
 
 class PostForm(ModelForm):
@@ -240,4 +241,132 @@ class CertificacaoForm(ModelForm):
         # texto auxiliar a um determinado campo do formulário
         help_texts = {
             'link': 'Este campo é opcional'
+        }
+
+
+class TecnologiaForm(ModelForm):
+    class Meta:
+        model = Tecnologia
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome da tecnologia', 'required': 'true'}),
+            'acronimo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Acrónimo da tecnologia'}),
+            'anoCriacao': forms.NumberInput(
+                attrs={'class': 'form-control', 'max-length': '4',
+                       'placeholder': 'Ano de criação', 'required': 'true'}),
+            'criador': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Criador da tecnologia', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva esta tecnologia', 'required': 'true'}),
+            'presentationlayer': forms.Select(
+                choices=[('Back-end', 'Back-end'), ('Front-end', 'Front-end'),
+                         ('Desktop', 'Desktop'), ('Mobile', 'Mobile'), ('Web', 'Web'), ('Embedded', 'Embedded')],
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'logotipo': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'usado': forms.CheckboxInput(attrs={'style': 'margin-left: 10px;'}),
+            'formaUso': forms.TextInput(
+                attrs={'class': 'form-control'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link para mais detalhes', 'autocomplete': 'off'}),
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'acronimo': 'Acrónimo',
+            'descricao': 'Descrição',
+            'data': 'Data da certificação',
+            'anoCriacao': 'Ano de criação',
+            'presentationlayer': 'Layer de apresentação',
+            'usado': 'É utilizada neste website?',
+            'formaUso': 'De que forma foi utilizada neste website?',
+            'link': 'Website oficial'
+        }
+
+        # texto auxiliar a um determinado campo do formulário
+        help_texts = {
+            'formaUso': 'Apenas preencha este campo se esta tecnologia foi utilizada neste website',
+            'link': 'Este campo é opcional'
+        }
+
+
+class LaboratorioForm(ModelForm):
+    class Meta:
+        model = Laboratorio
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Título do laboratório', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descrição do laboratório', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link para laboratório',
+                       'autocomplete': 'off', 'required': 'true'})
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'titulo': 'Título',
+            'descricao': 'Descrição',
+            'link': 'Link para Laboratório'
+        }
+
+
+class NoticiaForm(ModelForm):
+    class Meta:
+        model = Noticia
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Título da notícia', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descrição da notícia', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link para a notícia',
+                       'autocomplete': 'off', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'})
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'titulo': 'Título',
+            'descricao': 'Descrição',
+            'imagem': 'Imagem de apresentação',
+            'link': 'Link para notícia'
+        }
+
+
+class ComentarioForm(ModelForm):
+    class Meta:
+        model = Comentario
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do comentário', 'required': 'true'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control',
+                                               'placeholder': 'O que tem a dizer sobre este website?', 'required': 'true'}),
+            'avaliacao': forms.NumberInput(attrs={'class': 'form-control', 'min': '1', 'max': '10',
+                                                  'placeholder': 'Avalie de 1 a 10 estrelas', 'required': 'true'}),
+            'imagem': forms.FileInput(attrs={'class': 'form-control'}),
+            'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Autor deste comentário', 'required': 'true'}),
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'titulo': 'Título',
+            'descricao': 'A sua opinião',
+            'imagem': 'Imagem de perfil',
+            'avaliacao': 'A sua avaliação',
+            'autor': 'O seu nome',
+        }
+
+        # texto auxiliar a um determinado campo do formulário
+        help_texts = {
+            'link': 'Este campo é opcional',
         }
