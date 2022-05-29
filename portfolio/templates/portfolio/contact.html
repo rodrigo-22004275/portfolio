@@ -3,7 +3,8 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3>Contactar-me</h3>
+	<h3 class="title">Contactar-me</h3>
+    <br>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label>
@@ -36,6 +37,8 @@
         <p>━ ou encontre-me aqui ━</p>
         <div class="logos">
             <a href="https://www.linkedin.com/in/rodrifelix99/"><img src="{% static 'portfolio/images/linkedin.png' %}" alt="LinkedIn"></a>
+            <a href="https://github.com/rodrifelix99"><img src="{% static 'portfolio/images/github.png' %}" alt="GitHub"></a>
+            <a href="https://instagram.com/rodrifelix99"><img src="{% static 'portfolio/images/instagram.png' %}" alt="Instagram"></a>
         </div>
     </div>
 
