@@ -221,6 +221,12 @@ main {
     font-size: 1.5em;
 }
 
+.sub-title {
+    padding: 15px 40px;
+    border-radius: 50px;
+    font-size: 1.5em;
+}
+
 .add-btn {
     border-radius: 20px;
     font-size: 0.8rem;
@@ -236,9 +242,17 @@ main {
     transition: all 1s;
 }
 
+.sub-title > .add-btn {
+    background: #FFF;
+}
+
 .add-btn:hover {
     background: #DDD;
     box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+}
+
+.sub-title > .add-btn:hover {
+    background: #FFF;
 }
 
 .listagem {
