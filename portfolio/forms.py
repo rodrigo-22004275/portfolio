@@ -8,7 +8,14 @@ class PostForm(ModelForm):
         model = Postagem
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título do post'}),
+            'descricao': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descrição do post'}),
+            'imagem': forms.FileInput(attrs={'class': 'form-control'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do post', 'autocomplete': 'off'}),
+            'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Autor deste post'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -30,7 +37,10 @@ class ProfessorForm(ModelForm):
         model = Professor
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome do docente', 'required': 'true'})
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -43,7 +53,29 @@ class CadeiraForm(ModelForm):
         model = Cadeira
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'docente_teorica': forms.Select(
+                choices=Professor.objects.all().order_by('nome'),
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'docente_pratica': forms.Select(
+                choices=Professor.objects.all().order_by('nome'),
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'ano': forms.NumberInput(
+                attrs={'class': 'form-control', 'min': '1', 'max': '3',
+                       'placeholder': 'Ano letivo', 'required': 'true'}),
+            'semestre': forms.NumberInput(
+                attrs={'class': 'form-control', 'min': '1', 'max': '2',
+                       'placeholder': 'Semestre', 'required': 'true'}),
+            'ects': forms.NumberInput(
+                attrs={'class': 'form-control', 'min': '4', 'max': '6',
+                       'placeholder': 'Créditos', 'required': 'true'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -71,7 +103,19 @@ class ProjetoForm(ModelForm):
         model = Projeto
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'cadeira': forms.Select(
+                choices=Cadeira.objects.all().order_by('nome'),
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do projeto', 'autocomplete': 'off'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -93,7 +137,20 @@ class ProjetoHobbyForm(ModelForm):
         model = ProjetoHobby
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'online': forms.CheckboxInput(attrs={'style': 'margin-left: 10px;'}),
+            'data': forms.DateInput(
+                attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Data da certificação',
+                       'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do projeto', 'autocomplete': 'off'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -116,7 +173,22 @@ class EducacaoForm(ModelForm):
         model = Educacao
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'nome': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome do estabelecimento', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva esta etapa', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'anos': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': '2016 - 2019', 'max-length': '11',
+                       'required': 'true'}),
+            'certificacaoNivel': forms.NumberInput(
+                attrs={'class': 'form-control', 'min': '1', 'max': '8',
+                       'placeholder': 'Nível de certificação', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do estabelecimento', 'autocomplete': 'off'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
@@ -139,7 +211,21 @@ class CertificacaoForm(ModelForm):
         model = Certificacao
         fields = '__all__'
         # inserção de classes CSS para formatação de cada campo do formulário
-
+        widgets = {
+            'local': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome do estabelecimento', 'required': 'true'}),
+            'tipo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Tipo de certificação', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva esta certificação', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'data': forms.DateInput(
+                attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Data da certificação',
+                       'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link para mais detalhes', 'autocomplete': 'off'}),
+        }
 
         # texto a exibir junto à janela de inserção
         labels = {
