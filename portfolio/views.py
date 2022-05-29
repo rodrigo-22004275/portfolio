@@ -122,7 +122,7 @@ def pontuacao_quizz(request):
 
 
 def desenha_grafico_resultados():
-    participantes = sorted(PontuacaoQuizz.objects.all().order_by('pontuacao'), key=lambda x: x.pontuacao)
+    participantes = sorted(PontuacaoQuizz.objects.all().order_by('-pontuacao'), key=lambda x: x.pontuacao)
 
     nomes = []
     pontuacoes = []
