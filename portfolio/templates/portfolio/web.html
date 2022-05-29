@@ -131,7 +131,7 @@
     </div>
     <h3 class="sub-title">━ Comentários de visitantes
         {% if request.user.is_authenticated %}
-            <a class="add-btn" href="{% url 'portfolio:novo' tipo='comentario' %}">Adicionar um comentário</a>
+            <a class="add-btn" href="{% url 'portfolio:comentar' %}">Adicionar um comentário</a>
         {% endif %}
     </h3>
     <div class="listagem list-comentarios">

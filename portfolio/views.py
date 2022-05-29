@@ -305,5 +305,19 @@ def delete_view(request, tipo, tipo_id):
         return HttpResponseRedirect(reverse('portfolio:404'))
 
 
+def comentar_view(request):
+    form = ComentarioForm(request.POST or None, request.FILES or None)
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse(f'portfolio:web'))
+
+    context = {
+        'tipo': 'nada',
+        'form': form
+    }
+    return render(request, 'portfolio/novo.html', context)
+
+
 def view_404(request):
     return render(request, 'portfolio/404.html')

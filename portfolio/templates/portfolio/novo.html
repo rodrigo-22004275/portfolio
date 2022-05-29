@@ -3,7 +3,11 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Adicionar: {{ tipo }}</h3>
+    {% if not tipo == "nada" %}
+	    <h3 class="title">Adicionar: {{ tipo }}</h3>
+    {% else %}
+	    <h3 class="title">Comentar</h3>
+    {% endif %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
@@ -13,13 +17,15 @@
         <input type="reset" class="btn btn-reset" value="Limpar tudo">
     </form>
 
-    <br><br>
-    <div class="info-banner">
-        <p>
-            Já viu a página 404?
-            <br>
-            Altere a palavra <b>{{ tipo }}</b> no URL por outra palavra qualquer e pressione Enter.
-        </p>
-    </div>
+    {% if not tipo == "nada" %}
+        <br><br>
+        <div class="info-banner">
+            <p>
+                Já viu a página 404?
+                <br>
+                Altere a palavra <b>{{ tipo }}</b> no URL por outra palavra qualquer e pressione Enter.
+            </p>
+        </div>
+    {% endif %}
 
 {% endblock %}
