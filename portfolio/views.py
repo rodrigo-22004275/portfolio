@@ -6,8 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm
-from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao
+from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm, CertificacaoForm
+from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao, Certificacao
 
 from matplotlib import pyplot as plt
 
@@ -57,7 +57,8 @@ def home_page_view(request):
 def about_me_view(request):
     context = {
         'cadeiras': Cadeira.objects.all().order_by('-ano', '-semestre', 'nome', '-ects'),
-        'escolas': Educacao.objects.all().order_by('-certificacaoNivel')
+        'escolas': Educacao.objects.all().order_by('-certificacaoNivel'),
+        'certificacao': Certificacao.objects.all().order_by('-data', 'nome')
     }
     return render(request, 'portfolio/sobremim.html', context)
 
@@ -170,6 +171,9 @@ def add_view(request, tipo):
     elif tipo == 'educacao':
         form = EducacaoForm(request.POST or None, request.FILES or None)
         link = 'aboutme'
+    elif tipo == 'certificacao':
+        form = CertificacaoForm(request.POST or None, request.FILES or None)
+        link = 'aboutme'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -204,6 +208,10 @@ def edit_view(request, tipo, tipo_id):
         objeto = Educacao.objects.get(id=tipo_id)
         form = EducacaoForm(request.POST or None, request.FILES or None, instance=objeto)
         link = 'aboutme'
+    elif tipo == 'certificacao':
+        objeto = Certificacao.objects.get(id=tipo_id)
+        form = CertificacaoForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'aboutme'
     elif tipo == 'docentes':
         return HttpResponseRedirect(reverse('portfolio:docentes'))
     else:
@@ -235,6 +243,9 @@ def delete_view(request, tipo, tipo_id):
         return HttpResponseRedirect(reverse(f'portfolio:projetos'))
     elif tipo == 'educacao':
         Educacao.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
+    elif tipo == 'certificacao':
+        Certificacao.objects.get(id=tipo_id).delete()
         return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
     elif tipo == 'docentes':
         Professor.objects.get(id=tipo_id).delete()
