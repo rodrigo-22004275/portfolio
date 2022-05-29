@@ -7,10 +7,12 @@
     <h1>Login</h1>
 
     {% if message %}
-      <p> {{ message }} </p>
+      <div class="info-banner">
+        <p> {{ message }} </p>
+      </div>
     {% endif %}
 
-    <form method="POST">
+    <form action="{% url 'portfolio:login' %}" method="POST">
         {% csrf_token %}
         <label>
             Nome de utilizador:

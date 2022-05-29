@@ -65,4 +65,14 @@
             </article>
         {% endfor %}
     </div>
+
+    {% if not request.user.is_authenticated %}
+        <div class="info-banner">
+            <p>
+                Gostava de adicionar, editar ou apagar conteúdo?
+                <br>
+                Pode fazê-lo após <a href="{% url 'portfolio:login' %}">iniciar sessão</a>.
+            </p>
+        </div>
+    {% endif %}
 {% endblock %}
