@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Postagem, Professor, Cadeira, Projeto, Educacao
+from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao
 
 
 class PostForm(ModelForm):
@@ -162,6 +162,42 @@ class EducacaoForm(ModelForm):
             'anos': 'Anos de estudo',
             'certificacaoNivel': 'Certificação',
             'link': 'Link'
+        }
+
+        # texto auxiliar a um determinado campo do formulário
+        help_texts = {
+            'link': 'Este campo é opcional'
+        }
+
+
+class CertificacaoForm(ModelForm):
+    class Meta:
+        model = Certificacao
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'local': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome do estabelecimento', 'required': 'true'}),
+            'tipo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Tipo de certificação', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva esta certificação', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'data': forms.DateField(
+                attrs={'class': 'form-control', 'placeholder': 'Data da certificação', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link para mais detalhes', 'autocomplete': 'off'}),
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'local': 'Estabelecimento',
+            'tipo': 'Tipo de certificação',
+            'descricao': 'Descrição',
+            'imagem': 'Imagem de apresentação',
+            'data': 'Data da certificação',
+            'link': 'Link de detalhes'
         }
 
         # texto auxiliar a um determinado campo do formulário

@@ -72,6 +72,18 @@ class Educacao(models.Model):
         return self.nome[:50]
 
 
+class Certificacao(models.Model):
+    local = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='certificacao/', blank=True)
+    data = models.DateTimeField()
+    link = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return self.tipo[:50]
+
+
 class Mensagem(models.Model):
     nome = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
