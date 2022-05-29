@@ -33,7 +33,11 @@
 
     <br><br>
 
-    <h3 class="title">Educação <a class="add-btn" href="{% url 'portfolio:novo' tipo='educacao' %}">Adicionar +</a></h3>
+    <h3 class="title">Educação
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='educacao' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
     <div class="listagem">
         {% for escola in escolas %}
             <article>
@@ -60,7 +64,11 @@
 
     <br><br>
 
-    <h3 class="title">Certificações <a class="add-btn" href="{% url 'portfolio:novo' tipo='certificacao' %}">Adicionar +</a></h3>
+    <h3 class="title">Certificações
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='certificacao' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
     <div class="listagem">
         {% for ct in certificacao %}
             <article>
