@@ -105,9 +105,9 @@ class ProjetoForm(ModelForm):
         # inserção de classes CSS para formatação de cada campo do formulário
         widgets = {
             'titulo': forms.TextInput(
-                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+                attrs={'class': 'form-control', 'placeholder': 'Título do projeto', 'required': 'true'}),
             'descricao': forms.Textarea(
-                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+                attrs={'class': 'form-control', 'placeholder': 'Descreva o projeto', 'required': 'true'}),
             'imagem': forms.FileInput(
                 attrs={'class': 'form-control', 'required': 'true'}),
             'cadeira': forms.Select(
@@ -139,9 +139,9 @@ class ProjetoHobbyForm(ModelForm):
         # inserção de classes CSS para formatação de cada campo do formulário
         widgets = {
             'titulo': forms.TextInput(
-                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+                attrs={'class': 'form-control', 'placeholder': 'Título do projeto', 'required': 'true'}),
             'descricao': forms.Textarea(
-                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+                attrs={'class': 'form-control', 'placeholder': 'Descreva o projeto', 'required': 'true'}),
             'imagem': forms.FileInput(
                 attrs={'class': 'form-control', 'required': 'true'}),
             'online': forms.CheckboxInput(attrs={'style': 'margin-left: 10px;'}),
