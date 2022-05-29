@@ -3,7 +3,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title">Projetos
+	<h3 class="title" id="uni">Projetos académicos
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='projeto' %}">Adicionar +</a>
         {% endif %}
@@ -23,6 +23,41 @@
                 </div>
                 <div class="author">
                     <p>Cadeira de {{ pj.cadeira.nome }}</p>
+                    {% if pj.link %}
+                        <a href="{{ pj.link }}">Ver projeto</a>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+	<h3 class="title" id="auto">Projetos autónomos
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='hobby' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+    <div class="listagem">
+        {% for pj in projetosHobby %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='hobby' tipo_id=pj.id %}">Editar</a>
+                {% endif %}
+                {% if pj.online %}
+                    <p class="status online">Online</p>
+                {% else %}
+                    <p class="status offline">Offline</p>
+                {% endif %}
+                <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                <div class="content">
+                    <p>
+                        <b>{{ pj.titulo }}</b>
+                        <br />{{ pj.descricao }}
+                    </p>
+                </div>
+                <div class="author">
+                    <p>Lançado em {{ pj.data.month }}/{{ pj.data.year }}</p>
                     {% if pj.link %}
                         <a href="{{ pj.link }}">Ver projeto</a>
                     {% endif %}

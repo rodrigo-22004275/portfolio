@@ -109,7 +109,7 @@ nav .dropdown a:active {
     font-weight: bold;
 }
 
-.dp:hover .drop-aboutme {
+.dp:hover .dropdown {
     display: block;
 }
 
@@ -271,6 +271,10 @@ main {
     transform: translate(0,  -10px) scale(1.2);
 }
 
+.listagem article:hover > .status {
+    transform: translate(-30px, -25px);
+}
+
 @keyframes floating {
     from { transform: translate(0,  0px) scale(1.2); }
     65%  { transform: translate(3px, 5px) scale(1.2); }
@@ -300,6 +304,34 @@ main {
 .listagem article > .edit:hover {
     color: #333;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.listagem article > .status{
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    text-decoration: none;
+    color: #EEE;
+    border-radius: 15px;
+    padding: 5px 10px 5px 30px;
+    z-index: 1;
+    transition: all .5s;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center left 6px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.listagem article > .offline{
+    background-image: url('https://emoji.gg/assets/emoji/2179-offline-status.png');
+}
+
+.listagem article > .online{
+    background-image: url('https://emoji.gg/assets/emoji/5251-online-status.png');
 }
 
 .listagem article > img{

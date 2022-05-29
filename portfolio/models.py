@@ -60,6 +60,18 @@ class Projeto(models.Model):
         return self.titulo[:50]
 
 
+class ProjetoHobby(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+    imagem = models.ImageField(upload_to='projetos/', blank=True)
+    data = models.DateTimeField()
+    link = models.URLField(blank=True)
+    online = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.titulo[:50]
+
+
 class Educacao(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()

@@ -21,7 +21,13 @@
                 <a href="{% url 'portfolio:aboutme' %}#cert">Certificações</a>
             </div>
         </div>
-        <a href="{% url 'portfolio:projects' %}">Projetos</a>
+        <div class="dp">
+            <a href="{% url 'portfolio:projects' %}">Projetos</a>
+            <div class="dropdown drop-projects">
+                <a href="{% url 'portfolio:projects' %}#uni">Académicos</a>
+                <a href="{% url 'portfolio:projects' %}#auto">Autónomos</a>
+            </div>
+        </div>
         <a href="{% url 'portfolio:blog' %}">Blog</a>
         <a href="{% url 'portfolio:quizz' %}">Quizz</a>
         <a href="{% url 'portfolio:contact' %}">Contacto</a>

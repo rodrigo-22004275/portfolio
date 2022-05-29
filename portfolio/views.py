@@ -6,8 +6,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm, CertificacaoForm
-from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao, Certificacao
+from portfolio.forms import PostForm, ProfessorForm, CadeiraForm, ProjetoForm, EducacaoForm, CertificacaoForm, \
+    ProjetoHobbyForm
+from portfolio.models import Postagem, PontuacaoQuizz, Professor, Cadeira, Projeto, Mensagem, Educacao, Certificacao, \
+    ProjetoHobby
 
 from matplotlib import pyplot as plt
 
@@ -65,7 +67,8 @@ def about_me_view(request):
 
 def projects_page_view(request):
     context = {
-        'projetos': Projeto.objects.all()
+        'projetos': Projeto.objects.all().order_by('-cadeira'),
+        'projetosHobby': ProjetoHobby.objects.all().order_by('-data')
     }
 
     return render(request, 'portfolio/projects.html', context)
@@ -161,7 +164,10 @@ def add_view(request, tipo):
         link = 'aboutme'
     elif tipo == 'projeto':
         form = ProjetoForm(request.POST or None, request.FILES or None)
-        link = 'projetos'
+        link = 'projects'
+    elif tipo == 'hobby':
+        form = ProjetoHobbyForm(request.POST or None, request.FILES or None)
+        link = 'projects'
     elif tipo == 'educacao':
         form = EducacaoForm(request.POST or None, request.FILES or None)
         link = 'aboutme'
@@ -197,7 +203,11 @@ def edit_view(request, tipo, tipo_id):
     elif tipo == 'projeto':
         objeto = Projeto.objects.get(id=tipo_id)
         form = ProjetoForm(request.POST or None, request.FILES or None, instance=objeto)
-        link = 'projetos'
+        link = 'projects'
+    elif tipo == 'hobby':
+        objeto = ProjetoHobby.objects.get(id=tipo_id)
+        form = ProjetoHobbyForm(request.POST or None, request.FILES or None, instance=objeto)
+        link = 'projects'
     elif tipo == 'educacao':
         objeto = Educacao.objects.get(id=tipo_id)
         form = EducacaoForm(request.POST or None, request.FILES or None, instance=objeto)
@@ -234,7 +244,10 @@ def delete_view(request, tipo, tipo_id):
         return HttpResponseRedirect(reverse(f'portfolio:aboutme'))
     elif tipo == 'projeto':
         Projeto.objects.get(id=tipo_id).delete()
-        return HttpResponseRedirect(reverse(f'portfolio:projetos'))
+        return HttpResponseRedirect(reverse(f'portfolio:projects'))
+    elif tipo == 'hobby':
+        ProjetoHobby.objects.get(id=tipo_id).delete()
+        return HttpResponseRedirect(reverse(f'portfolio:projects'))
     elif tipo == 'educacao':
         Educacao.objects.get(id=tipo_id).delete()
         return HttpResponseRedirect(reverse(f'portfolio:aboutme'))

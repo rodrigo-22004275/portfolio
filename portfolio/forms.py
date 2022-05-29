@@ -1,6 +1,7 @@
+from Tools.scripts.make_ctype import values
 from django import forms
 from django.forms import ModelForm
-from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao
+from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao, ProjetoHobby
 
 
 class PostForm(ModelForm):
@@ -123,6 +124,42 @@ class ProjetoForm(ModelForm):
             'descricao': 'Descreva este projeto',
             'imagem': 'Imagem de apresentação',
             'cadeira': 'Cadeira',
+            'link': 'Link'
+        }
+
+        # texto auxiliar a um determinado campo do formulário
+        help_texts = {
+            'link': 'Este campo é opcional',
+        }
+
+
+class ProjetoHobbyForm(ModelForm):
+    class Meta:
+        model = ProjetoHobby
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome da cadeira', 'required': 'true'}),
+            'descricao': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Descreva a cadeira', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'online': forms.CheckboxInput(attrs={'style': 'margin-left: 10px;'}),
+            'data': forms.DateInput(
+                attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Data da certificação',
+                       'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do projeto', 'autocomplete': 'off'}),
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'titulo': 'Título do projeto',
+            'descricao': 'Descreva este projeto',
+            'imagem': 'Imagem de apresentação',
+            'data': 'Data de lançamento',
+            'online': 'Projeto ainda ativo?',
             'link': 'Link'
         }
 
