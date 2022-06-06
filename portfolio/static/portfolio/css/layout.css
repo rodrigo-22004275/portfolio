@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=VT323&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -7,22 +8,27 @@
 }
 
 *::-webkit-scrollbar {
-  width: 11px;
+    width: 11px;
 }
 
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #BBB;
+    scrollbar-width: thin;
+    scrollbar-color: #BBB;
 }
 
 *::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #BBB;
-  border-radius: 10px;
-  border: none;
+    background-color: #BBB;
+    border-radius: 10px;
+    border: none;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 12vh;
 }
 
 header {
@@ -40,14 +46,6 @@ header {
 
     /* Trazer para a frente */
     z-index: 1;
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-  header {
-    background: linear-gradient(90deg, hsla(211, 66%, 87%, 0.8) 0%, hsla(348, 67%, 88%, 0.8) 50%, hsla(272, 26%, 72%, 0.8) 100%) no-repeat;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
 }
 
 header div {
@@ -135,10 +133,10 @@ main {
     width: 100%;
     object-fit: cover;
     box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-              12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-              22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-              41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-              100px 100px 80px rgba(0, 0, 0, 0.07);
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    100px 100px 80px rgba(0, 0, 0, 0.07);
     border-radius: 10px;
 }
 
@@ -149,9 +147,9 @@ main {
     transform: translate(-50%, -50%);
     font-size: 100px;
     color: #FFF;
-    text-shadow: 0 15px 5px rgba(0,0,0,0.1),
-                 10px 20px 5px rgba(0,0,0,0.05),
-                 -10px 20px 5px rgba(0,0,0,0.05);
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.1),
+    10px 20px 5px rgba(0, 0, 0, 0.05),
+    -10px 20px 5px rgba(0, 0, 0, 0.05);
 }
 
 .hero > p {
@@ -186,9 +184,9 @@ main {
     max-width: 90%;
     text-align: center;
     color: #FFF;
-    text-shadow: 0 15px 5px rgba(0,0,0,0.1),
-                 10px 20px 5px rgba(0,0,0,0.05),
-                 -10px 20px 5px rgba(0,0,0,0.05);
+    text-shadow: 0 15px 5px rgba(0, 0, 0, 0.1),
+    10px 20px 5px rgba(0, 0, 0, 0.05),
+    -10px 20px 5px rgba(0, 0, 0, 0.05);
 }
 
 .img2 {
@@ -286,11 +284,11 @@ main {
 .listagem article:hover > img {
     border-radius: 15px;
     box-shadow: 2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-              12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-              22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-              41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-              100px 100px 80px rgba(0, 0, 0, 0.07);
-    transform: translate(0,  -10px) scale(1.2);
+    12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+    22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+    41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+    100px 100px 80px rgba(0, 0, 0, 0.07);
+    transform: translate(0, -10px) scale(1.2);
 }
 
 .listagem article:hover > .status {
@@ -298,9 +296,15 @@ main {
 }
 
 @keyframes floating {
-    from { transform: translate(0,  0px) scale(1.2); }
-    65%  { transform: translate(3px, 5px) scale(1.2); }
-    to   { transform: translate(0, 0px) scale(1.2); }
+    from {
+        transform: translate(0, 0px) scale(1.2);
+    }
+    65% {
+        transform: translate(3px, 5px) scale(1.2);
+    }
+    to {
+        transform: translate(0, 0px) scale(1.2);
+    }
 }
 
 .listagem article:hover > .author > a {
@@ -308,7 +312,7 @@ main {
     border-radius: 15px;
 }
 
-.listagem article > .edit{
+.listagem article > .edit {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -328,7 +332,7 @@ main {
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.listagem article > .status{
+.listagem article > .status {
     position: absolute;
     top: 25px;
     left: 25px;
@@ -348,15 +352,15 @@ main {
     font-size: 0.8em;
 }
 
-.listagem article > .offline{
+.listagem article > .offline {
     background-image: url('https://emoji.gg/assets/emoji/2179-offline-status.png');
 }
 
-.listagem article > .online{
+.listagem article > .online {
     background-image: url('https://emoji.gg/assets/emoji/5251-online-status.png');
 }
 
-.listagem article > img{
+.listagem article > img {
     width: 100%;
     height: 45%;
     object-fit: cover;
@@ -369,7 +373,7 @@ main {
     will-change: transform;
 }
 
-.listagem article > .content{
+.listagem article > .content {
     width: 100%;
     height: 40%;
     margin-top: 5%;
@@ -378,13 +382,13 @@ main {
     will-change: transform;
 }
 
-.listagem article > .content > p{
+.listagem article > .content > p {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 5%;
 }
 
-.listagem article > .content > p > b{
+.listagem article > .content > p > b {
     font-size: 1.5em;
     display: block;
     margin-bottom: 10px;
@@ -404,8 +408,8 @@ main {
     align-items: center;
     font-size: 0.8em;
     -webkit-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
-      -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
-      box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+    -moz-box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
+    box-shadow: 0 -4px 3px rgba(50, 50, 50, 0.1);
 }
 
 .listagem article > .author > a {
@@ -474,7 +478,7 @@ main {
     border-bottom: 1px solid #DDD;
 }
 
-.list-comentarios > article > .header > img{
+.list-comentarios > article > .header > img {
     width: 50px;
     height: 50px;
     border-radius: 100%;
@@ -482,27 +486,27 @@ main {
     object-position: center;
 }
 
-.list-comentarios > article > .header > p{
+.list-comentarios > article > .header > p {
     margin-left: 10px;
 }
 
-.list-comentarios > article > .header > p > span{
+.list-comentarios > article > .header > p > span {
     font-size: 0.8em;
     color: #999;
 }
 
-.list-comentarios > article > .header > span{
+.list-comentarios > article > .header > span {
     position: absolute;
     bottom: 0;
     right: 0;
     font-size: 0.8em;
 }
 
-.list-comentarios > article > .header > span > b{
+.list-comentarios > article > .header > span > b {
     font-size: 1.3em;
 }
 
-.list-comentarios article > .content{
+.list-comentarios article > .content {
     width: 100%;
     height: 60%;
     margin-top: 5%;
@@ -511,7 +515,7 @@ main {
     will-change: transform;
 }
 
-.list-comentarios article > .content > p{
+.list-comentarios article > .content > p {
     height: 100%;
     overflow-y: auto;
     padding-bottom: 5%;
@@ -675,7 +679,7 @@ div.success-banner {
     text-align: center;
 }
 
-#modelo-er img{
+#modelo-er img {
     max-width: 100%;
     max-height: 700px;
     margin-top: 20px;
@@ -688,4 +692,113 @@ footer {
     justify-content: flex-end;
     padding: 0 2vw;
     align-items: center;
+}
+
+#weather-clock {
+    position: fixed;
+    bottom: 10vh;
+    right: 5vw;
+    max-width: 500px;
+    padding: 20px 30px;
+    background: #FFF;
+    border-radius: 50px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+    text-align: center;
+    overflow: hidden;
+}
+
+#weather-clock:hover > #weather {
+    max-height: 90vh;
+}
+
+#weather {
+    max-height: 0;
+    font-size: 1rem;
+    overflow: hidden;
+    transition: max-height 1s ease-in-out;
+}
+
+#weather > img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 150px;
+}
+
+#weather > #weather-temp {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+#weather > #weather-temp > span {
+    font-size: 1rem;
+}
+
+#clock {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#clock > img {
+    height: 50px;
+}
+
+#clock > p {
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+}
+
+#location {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30px 5%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: #FFF;
+    z-index: 1;
+    display: none;
+}
+
+#location > img {
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 50px;
+}
+
+#location > h1 {
+    margin-bottom: 30px;
+}
+
+#location > span {
+    position: fixed;
+    bottom: 5vh;
+    font-size: 0.8em;
+    color: #AAA;
+}
+
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    header {
+        background: linear-gradient(90deg, hsla(211, 66%, 87%, 0.8) 0%, hsla(348, 67%, 88%, 0.8) 50%, hsla(272, 26%, 72%, 0.8) 100%) no-repeat;
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+
+    #weather-clock {
+        background-color: rgba(255, 255, 255, 0.7);
+        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(20px);
+    }
+
+    #location {
+        background-color: rgba(255, 255, 255, 0.7);
+        -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+    }
 }

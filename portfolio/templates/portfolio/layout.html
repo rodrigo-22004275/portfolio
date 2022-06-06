@@ -40,7 +40,7 @@
         </div>
         <a href="{% url 'portfolio:blog' %}">Blog</a>
         <a href="{% url 'portfolio:contact' %}">Contacto</a>
-        {%  if request.user.is_authenticated %}
+        {% if request.user.is_authenticated %}
             <a href="{% url 'portfolio:logout' %}">Logout</a>
         {% else %}
             <a href="{% url 'portfolio:login' %}">Login</a>
@@ -50,9 +50,208 @@
 
 <main>
     {% block main %}
-	{% endblock main %}
+    {% endblock main %}
+    <div id="weather-clock">
+        <div id="weather">
+            <img id="weather-icon">
+            <p id="weather-temp"></p>
+            <p id="weather-city"></p>
+            <br><br>
+        </div>
+        <div id="clock"><img><p>00:00:00</p></div>
+    </div>
+    <div id="location">
+        <img src="{% static 'portfolio/images/location.gif' %}"/>
+        <h1>A sua localização é necessária</h1>
+        <p>A localização será usada para a função de meteorologia deste website.</p>
+        <span>A sua localização não será armazenada nem partilhada com outras fontes.<br>Uma vez calculada a meteorologia, a mesma será completamente eliminada.</span>
+    </div>
 </main>
 
 <footer>Rodrigo Félix | ULHT, 2022</footer>
+
+<script>
+    function time() {
+        const relogio = document.querySelector('#clock > p');
+        const d = new Date();
+        const s = d.getSeconds();
+        const m = d.getMinutes();
+        const h = d.getHours();
+        relogio.textContent = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2);
+    }
+
+    function getWeather(location) {
+        document.getElementById('location').style.display = 'none';
+        fetch('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' + location.coords.latitude + '&longitude=' + location.coords.longitude + '&localityLanguage=pt').then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            const city = data.locality;
+            const bigCity = data.principalSubdivision;
+
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=' + location.coords.latitude + '&longitude=' + location.coords.longitude + '&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Lisbon')
+                .then(response => response.json())
+                .then(data => {
+                    const tempMax = data.daily.temperature_2m_max;
+                    const tempMin = data.daily.temperature_2m_min;
+                    let weatherIcon = "";
+                    let dayNight = "night";
+                    const d = new Date();
+                    if (d.getTime() > data.daily.sunrise[0] && d.getTime() < data.daily.sunset[0]) {
+                        dayNight = "day";
+                    }
+                    switch (data.daily.weathercode[0]) {
+                        case 0:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'clear-' + dayNight + '.svg';
+                            break;
+                        case 1:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '.svg';
+                            break;
+                        case 2:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'overcast-' + dayNight + '.svg';
+                            break;
+                        case 3:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'overcast.svg';
+                            break;
+                        case 45:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'fog-' + dayNight + '.svg';
+                            break;
+                        case 48:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '-fog.svg';
+                            break;
+                        case 51:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '-drizzle.svg';
+                            break;
+                        case 53:
+                        case 56:
+                        case 57:
+                        case 55:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'drizzle.svg';
+                            break;
+                        case 61:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '-rain.svg';
+                            break;
+                        case 63:
+                        case 65:
+                        case 66:
+                        case 67:
+                        case 80:
+                        case 81:
+                        case 82:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'rain.svg';
+                            break;
+                        case 71:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '-snow.svg';
+                            break;
+                        case 73:
+                        case 75:
+                        case 85:
+                        case 86:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'snow.svg';
+                            break;
+                        case 77:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'partly-cloudy-' + dayNight + '-hail.svg';
+                            break;
+                        case 95:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'thunderstorms-' + dayNight + '.svg';
+                            break;
+                        case 96:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'thunderstorms-' + dayNight + '-rain.svg';
+                            break
+                        case 97:
+                            weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'thunderstorms-rain.svg';
+                            break;
+                        default:
+                            weatherIcon = '{% static 'portfolio/images/weather/celsius.svg' %}';
+                            break;
+                    }
+
+                    const weatherTemp = document.getElementById('weather-temp');
+                    const weatherImg = document.getElementById('weather-icon');
+                    const weatherCity = document.getElementById('weather-city');
+                    const weather = document.getElementById('weather');
+
+                    weatherTemp.innerHTML = tempMax[0] + 'ºC <span>' + tempMin[0] + 'ºC</span>';
+                    weatherImg.src = weatherIcon;
+                    weatherCity.textContent = city + ', ' + bigCity;
+                    document.querySelector("#clock > img").src = weatherIcon;
+                    if (document.cookie.indexOf('weatherShown') == -1) {
+                        document.cookie = "weatherShown=true; path=/";
+                        weather.style.maxHeight = '90vh';
+                    }
+
+                    setTimeout(function () {
+                        weather.style.removeProperty('max-height');
+                    }, 5000);
+                })
+                .catch(function (error) {
+                    console.error('Ocorreu um erro a fazer um pedido à API de Meteorologia: ' + error.message);
+                });
+        }).catch(function (error) {
+            console.error('Ocorreu um erro a fazer um pedido à API de Geolocalização: ' + error.message);
+        });
+    }
+
+    function noLocationGiven(error) {
+        const img = document.querySelector('#location > img');
+        const title = document.querySelector('#location > h1');
+        const text = document.querySelector('#location > p');
+        const location = document.getElementById('location');
+
+        if (error.code === 1) {
+            img.src = "{% static 'portfolio/images/no-location.gif' %}";
+            title.innerHTML = 'Negou a partilha da localização';
+            text.innerHTML = 'Por esse motivo, apenas poderá ver a meteorologia em Lisboa.' +
+                '<br>Lembre-se: a sua informação está segura e será sempre anónima.' +
+                '<br>Se mudar de ideias, pode tentar novamente.' +
+                '<br><br><b>Esta mensagem deparece em 5 segundos.</b>';
+        } else if (error.code === 2) {
+            img.src = "{% static 'portfolio/images/error.gif' %}";
+            title.innerHTML = 'Algo não está certo';
+            text.innerHTML = 'Possivelmente o seu dispositivo não consegue aceder à sua localização.<br>Ativou os serviços de localização?';
+        } else if (error.code === 3) {
+            title.innerHTML = 'Oops! Vamos tentar novamente';
+        } else {
+            img.src = "{% static 'portfolio/images/ie.png' %}";
+            title.innerHTML = 'O seu browser não suporta geolocalização';
+            text.innerHTML = 'Por este motivo, apenas poderá ver a meteorologia em Lisboa.';
+        }
+
+        // Calcular localização para Lisboa
+        var placeboLocation = {
+            coords: {
+                latitude: 38.736946,
+                longitude: -9.142685
+            }
+        };
+        getWeather(placeboLocation);
+
+        // Apresentar div de erro se ela ainda não tiver sido apresentada
+        if (document.cookie.indexOf('weatherShown') == -1) {
+            document.cookie = "weatherShown=true; path=/";
+            location.style.display = 'flex';
+        }
+        setTimeout(function () {
+            location.style.display = 'none';
+        }, 5000);
+    }
+
+    window.onload = function () {
+        // Meteorologia
+        if (navigator.geolocation) {
+            document.getElementById('location').style.display = 'flex';
+            navigator.geolocation.getCurrentPosition(getWeather, noLocationGiven);
+        } else {
+            const error = {
+                code: 0,
+                message: 'Não conseguiu aceder à sua localização'
+            };
+            noLocationGiven(error);
+        }
+
+        // Relógio
+        setInterval(time, 1000);
+    }
+</script>
+
 </body>
 </html>
