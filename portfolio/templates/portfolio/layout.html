@@ -88,18 +88,19 @@
             const city = data.locality;
             const bigCity = data.principalSubdivision;
 
-            fetch('https://api.open-meteo.com/v1/forecast?latitude=' + location.coords.latitude + '&longitude=' + location.coords.longitude + '&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Lisbon')
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=' + location.coords.latitude + '&longitude=' + location.coords.longitude + '&hourly=temperature_2m,weathercode&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Lisbon')
                 .then(response => response.json())
                 .then(data => {
-                    const tempMax = data.daily.temperature_2m_max;
-                    const tempMin = data.daily.temperature_2m_min;
                     let weatherIcon = "";
                     let dayNight = "night";
+                    const tempMax = data.daily.temperature_2m_max;
+                    const tempMin = data.daily.temperature_2m_min;
                     const d = new Date();
-                    if (d.getTime() > data.daily.sunrise[0] && d.getTime() < data.daily.sunset[0]) {
+                    const temp = data.hourly.temperature_2m[d.getHours()];
+                    if (d.toISOString() > data.daily.sunrise[0] && d.toISOString() < data.daily.sunset[0]) {
                         dayNight = "day";
                     }
-                    switch (data.daily.weathercode[0]) {
+                    switch (data.hourly.weathercode[d.getHours()]) {
                         case 0:
                             weatherIcon = '{% static 'portfolio/images/weather/' %}' + 'clear-' + dayNight + '.svg';
                             break;
@@ -170,7 +171,13 @@
                     const weatherCity = document.getElementById('weather-city');
                     const weather = document.getElementById('weather');
 
-                    weatherTemp.innerHTML = tempMax[0] + 'ºC <span>' + tempMin[0] + 'ºC</span>';
+                    if (dayNight == "day") {
+                        document.querySelector("#clock img").className = "day";
+                    } else {
+                        document.querySelector("#clock img").className = "night";
+                    }
+
+                    weatherTemp.innerHTML = '<span>' + tempMax[0] + '</span> ' + temp + 'ºC <span>' + tempMin[0] + '</span>';
                     weatherImg.src = weatherIcon;
                     weatherCity.textContent = city + ', ' + bigCity;
                     document.querySelector("#clock > img").src = weatherIcon;
