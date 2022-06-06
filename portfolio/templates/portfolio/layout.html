@@ -245,7 +245,9 @@
     window.onload = function () {
         // Meteorologia
         if (navigator.geolocation) {
-            document.getElementById('location').style.display = 'flex';
+            if (document.cookie.indexOf('weatherShown') == -1) {
+                document.getElementById('location').style.display = 'flex';
+            }
             navigator.geolocation.getCurrentPosition(getWeather, noLocationGiven);
         } else {
             const error = {
