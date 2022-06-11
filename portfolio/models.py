@@ -72,6 +72,21 @@ class ProjetoHobby(models.Model):
         return self.titulo[:50]
 
 
+class TFC(models.Model):
+    titulo = models.CharField(max_length=100)
+    resumo = models.TextField()
+    imagem = models.ImageField(upload_to='TFCs/', blank=True)
+    video = models.URLField(blank=True)
+    relatorio = models.URLField(blank=True)
+    link = models.URLField(blank=True)
+    aluno = models.CharField(max_length=100)
+    orientador = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='orientador')
+    data = models.DateTimeField()
+
+    def __str__(self):
+        return self.titulo[:50]
+
+
 class Educacao(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()

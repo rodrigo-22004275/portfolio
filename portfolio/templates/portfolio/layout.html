@@ -26,6 +26,7 @@
             <div class="dropdown drop-projects">
                 <a href="{% url 'portfolio:projects' %}#uni">Académicos</a>
                 <a href="{% url 'portfolio:projects' %}#auto">Autónomos</a>
+                <a href="{% url 'portfolio:projects' %}#tfc">TFCs</a>
             </div>
         </div>
         <div class="dp">
@@ -53,15 +54,18 @@
     {% endblock main %}
     <div id="weather-clock">
         <div id="weather">
-            <img id="weather-icon">
+            <img id="weather-icon" src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif" alt="Ícone de weathercode">
             <p id="weather-temp"></p>
             <p id="weather-city"></p>
             <br><br>
         </div>
-        <div id="clock"><img><p>00:00:00</p></div>
+        <div id="clock">
+            <img src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif" alt="Pequeno ícone de weathercode">
+            <p>Bem-vindo</p>
+        </div>
     </div>
     <div id="location">
-        <img src="{% static 'portfolio/images/location.gif' %}"/>
+        <img src="{% static 'portfolio/images/location.gif' %}" alt="Ícone de aviso"/>
         <h1>A sua localização é necessária</h1>
         <p>A localização será usada para a função de meteorologia deste website.</p>
         <span>A sua localização não será armazenada nem partilhada com outras fontes.<br>Uma vez calculada a meteorologia, a mesma será completamente eliminada.</span>
@@ -91,7 +95,7 @@
             fetch('https://api.open-meteo.com/v1/forecast?latitude=' + location.coords.latitude + '&longitude=' + location.coords.longitude + '&hourly=temperature_2m,weathercode&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Lisbon')
                 .then(response => response.json())
                 .then(data => {
-                    let weatherIcon = "";
+                    let weatherIcon;
                     let dayNight = "night";
                     const tempMax = data.daily.temperature_2m_max;
                     const tempMin = data.daily.temperature_2m_min;
@@ -171,17 +175,17 @@
                     const weatherCity = document.getElementById('weather-city');
                     const weather = document.getElementById('weather');
 
-                    if (dayNight == "day") {
+                    if (dayNight === "day") {
                         document.querySelector("#clock img").className = "day";
                     } else {
                         document.querySelector("#clock img").className = "night";
                     }
 
-                    weatherTemp.innerHTML = '<span>' + tempMax[0] + '</span> ' + temp + 'ºC <span>' + tempMin[0] + '</span>';
+                    weatherTemp.innerHTML = '<span>' + Math.round(tempMax[0]) + '</span> ' + Math.round(temp) + 'ºC <span>' + Math.round(tempMin[0]) + '</span>';
                     weatherImg.src = weatherIcon;
-                    weatherCity.textContent = city + ', ' + bigCity;
+                    weatherCity.innerHTML = city + '<br><span>' + bigCity + '</span>';
                     document.querySelector("#clock > img").src = weatherIcon;
-                    if (document.cookie.indexOf('weatherShown') == -1) {
+                    if (document.cookie.indexOf('weatherShown') === -1) {
                         document.cookie = "weatherShown=true; path=/";
                         weather.style.maxHeight = '90vh';
                     }
@@ -233,7 +237,7 @@
         getWeather(placeboLocation);
 
         // Apresentar div de erro se ela ainda não tiver sido apresentada
-        if (document.cookie.indexOf('weatherShown') == -1) {
+        if (document.cookie.indexOf('weatherShown') === -1) {
             document.cookie = "weatherShown=true; path=/";
             location.style.display = 'flex';
         }
@@ -245,7 +249,7 @@
     window.onload = function () {
         // Meteorologia
         if (navigator.geolocation) {
-            if (document.cookie.indexOf('weatherShown') == -1) {
+            if (document.cookie.indexOf('weatherShown') === -1) {
                 document.getElementById('location').style.display = 'flex';
             }
             navigator.geolocation.getCurrentPosition(getWeather, noLocationGiven);
