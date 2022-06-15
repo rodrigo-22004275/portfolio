@@ -26,6 +26,7 @@
             <div class="dropdown drop-projects">
                 <a href="{% url 'portfolio:projects' %}#uni">Académicos</a>
                 <a href="{% url 'portfolio:projects' %}#auto">Autónomos</a>
+                <a href="{% url 'portfolio:projects' %}#tfcs">TFCs</a>
             </div>
         </div>
         <div class="dp">
@@ -53,12 +54,13 @@
     {% endblock main %}
     <div id="weather-clock">
         <div id="weather">
-            <img id="weather-icon">
+            <img id="weather-icon" src="">
             <p id="weather-temp"></p>
             <p id="weather-city"></p>
             <br><br>
         </div>
-        <div id="clock"><img><p>00:00:00</p></div>
+        <div id="clock"><img src="">
+            <p>00:00:00</p></div>
     </div>
     <div id="location">
         <img src="{% static 'portfolio/images/location.gif' %}"/>
@@ -66,9 +68,47 @@
         <p>A localização será usada para a função de meteorologia deste website.</p>
         <span>A sua localização não será armazenada nem partilhada com outras fontes.<br>Uma vez calculada a meteorologia, a mesma será completamente eliminada.</span>
     </div>
+    <div class="site-map">
+        <button onclick="siteMap(false)">Fechar</button>
+        <ul>
+            <li><a href="{% url 'portfolio:home' %}">Inicio</a></li>
+            <li><a href="{% url 'portfolio:aboutme' %}">Sobre mim</a></li>
+            <li>
+                <ul>
+                    <li><a href="{% url 'portfolio:aboutme' %}#uni">Universidade</a></li>
+                    <li><a href="{% url 'portfolio:aboutme' %}#edu">Educação</a></li>
+                    <li><a href="{% url 'portfolio:aboutme' %}#cert">Certificações</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'portfolio:projects' %}">Projetos</a></li>
+            <li>
+                <ul>
+                    <li><a href="{% url 'portfolio:projects' %}#uni">Académicos</a></li>
+                    <li><a href="{% url 'portfolio:projects' %}#auto">Autónomos</a></li>
+                    <li><a href="{% url 'portfolio:projects' %}#tfcs">TFCs</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'portfolio:web' %}">Web</a></li>
+            <li>
+                <ul>
+                    <li><a href="{% url 'portfolio:web' %}#tech">Tecnologias existentes</a></li>
+                    <li><a href="{% url 'portfolio:web' %}#labs">Laboratórios</a></li>
+                    <li><a href="{% url 'portfolio:web' %}#news">Notícias</a></li>
+                    <li><a href="{% url 'portfolio:web' %}#about">Sobre este website</a></li>
+                    <li><a href="{% url 'portfolio:web' %}#quizz">Quizz</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'portfolio:blog' %}">Blog</a></li>
+            <li><a href="{% url 'portfolio:contact' %}">Contacto</a></li>
+            <li><a href="{% url 'portfolio:login' %}">Login</a></li>
+        </ul>
+    </div>
 </main>
 
-<footer>Rodrigo Félix | ULHT, 2022</footer>
+<footer>
+    <button onclick="siteMap(true)">Mapa do site</button>
+    Rodrigo Félix | ULHT, 2022
+</footer>
 
 <script>
     function time() {
@@ -171,7 +211,7 @@
                     const weatherCity = document.getElementById('weather-city');
                     const weather = document.getElementById('weather');
 
-                    if (dayNight == "day") {
+                    if (dayNight === "day") {
                         document.querySelector("#clock img").className = "day";
                     } else {
                         document.querySelector("#clock img").className = "night";
@@ -181,7 +221,7 @@
                     weatherImg.src = weatherIcon;
                     weatherCity.textContent = city + ', ' + bigCity;
                     document.querySelector("#clock > img").src = weatherIcon;
-                    if (document.cookie.indexOf('weatherShown') == -1) {
+                    if (document.cookie.indexOf('weatherShown') === -1) {
                         document.cookie = "weatherShown=true; path=/";
                         weather.style.maxHeight = '90vh';
                     }
@@ -233,7 +273,7 @@
         getWeather(placeboLocation);
 
         // Apresentar div de erro se ela ainda não tiver sido apresentada
-        if (document.cookie.indexOf('weatherShown') == -1) {
+        if (document.cookie.indexOf('weatherShown') === -1) {
             document.cookie = "weatherShown=true; path=/";
             location.style.display = 'flex';
         }
@@ -242,10 +282,18 @@
         }, 5000);
     }
 
+    function siteMap(show) {
+        if (show) {
+            document.querySelector('.site-map').style.display = 'block';
+        } else {
+            document.querySelector('.site-map').style.display = 'none';
+        }
+    }
+
     window.onload = function () {
         // Meteorologia
         if (navigator.geolocation) {
-            if (document.cookie.indexOf('weatherShown') == -1) {
+            if (document.cookie.indexOf('weatherShown') === -1) {
                 document.getElementById('location').style.display = 'flex';
             }
             navigator.geolocation.getCurrentPosition(getWeather, noLocationGiven);

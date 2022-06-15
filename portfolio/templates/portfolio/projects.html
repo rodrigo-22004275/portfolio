@@ -75,6 +75,44 @@
         {% endfor %}
     </div>
 
+    <br><br>
+
+    <h3 class="title" id="tfcs">TFCs
+        {% if request.user.is_authenticated %}
+            <a class="add-btn" href="{% url 'portfolio:novo' tipo='TFC' %}">Adicionar +</a>
+        {% endif %}
+    </h3>
+    {% load static %}
+    <div class="listagem">
+        {% for pj in TFCs %}
+            <article>
+                {% if request.user.is_authenticated %}
+                    <a class="edit" href="{% url 'portfolio:editar' tipo='TFC' tipo_id=pj.id %}">Editar</a>
+                {% endif %}
+                {% if pj.imagem %}
+                    <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                {% else %}
+                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                {% endif %}
+                <div class="content">
+                    <p>
+                        <b>{{ pj.titulo }}</b>
+                        Apresentado em {{ pj.data.year }} por {{ pj.aluno }} com a orientação de {{ pj.orientador.nome }}
+                        <br /><br />
+                        {{ pj.resumo }}
+                    </p>
+                </div>
+                <div class="author">
+                    <a href="{{ pj.video }}">Vídeo</a>
+                    &nbsp;
+                    <a href="{{ pj.relatorio }}">Relatório</a>
+                    &nbsp;
+                    <a href="{{ pj.link }}">GitHub</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
     {% if not request.user.is_authenticated %}
         <div class="info-banner">
             <p>

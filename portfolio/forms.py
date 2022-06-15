@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Postagem, Professor, Cadeira, Projeto, Educacao, Certificacao, ProjetoHobby, Tecnologia, \
-    Laboratorio, Noticia, Comentario
+    Laboratorio, Noticia, Comentario, TFC
 
 
 class PostForm(ModelForm):
@@ -130,6 +130,47 @@ class ProjetoForm(ModelForm):
         # texto auxiliar a um determinado campo do formulário
         help_texts = {
             'link': 'Este campo é opcional',
+        }
+
+
+class TFCForm(ModelForm):
+    class Meta:
+        model = TFC
+        fields = '__all__'
+        # inserção de classes CSS para formatação de cada campo do formulário
+        widgets = {
+            'titulo': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Título do projeto', 'required': 'true'}),
+            'resumo': forms.Textarea(
+                attrs={'class': 'form-control', 'placeholder': 'Resumo do projeto', 'required': 'true'}),
+            'imagem': forms.FileInput(
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'aluno': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nome do aluno', 'required': 'true'}),
+            'orientador': forms.Select(
+                choices=Professor.objects.all().order_by('nome'),
+                attrs={'class': 'form-control', 'required': 'true'}),
+            'video': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Video do projeto', 'autocomplete': 'off', 'required': 'true'}),
+            'relatorio': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do relatório', 'autocomplete': 'off', 'required': 'true'}),
+            'link': forms.URLInput(
+                attrs={'class': 'form-control', 'placeholder': 'Link do projeto', 'autocomplete': 'off', 'required': 'true'}),
+            'data': forms.DateInput(
+                attrs={'type': 'date', 'class': 'form-control', 'placeholder': 'Data do projeto', 'required': 'true'}),
+        }
+
+        # texto a exibir junto à janela de inserção
+        labels = {
+            'titulo': 'Título',
+            'resumo': 'Resumo',
+            'imagem': 'Imagem do projeto',
+            'aluno': 'Nome do aluno',
+            'orientador': 'Orientador',
+            'video': 'Video',
+            'relatorio': 'Relatório',
+            'link': 'GitHub',
+            'data': 'Data'
         }
 
 
