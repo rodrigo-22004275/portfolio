@@ -76,7 +76,7 @@ class TFC(models.Model):
     titulo = models.CharField(max_length=100)
     resumo = models.TextField()
     imagem = models.ImageField(upload_to='TFCs/', blank=True)
-    video = models.URLField(blank=True)
+    video = models.CharField(max_length=100)
     relatorio = models.URLField(blank=True)
     link = models.URLField(blank=True)
     aluno = models.CharField(max_length=100)

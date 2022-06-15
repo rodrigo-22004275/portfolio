@@ -150,8 +150,8 @@ class TFCForm(ModelForm):
             'orientador': forms.Select(
                 choices=Professor.objects.all().order_by('nome'),
                 attrs={'class': 'form-control', 'required': 'true'}),
-            'video': forms.URLInput(
-                attrs={'class': 'form-control', 'placeholder': 'Video do projeto', 'autocomplete': 'off', 'required': 'true'}),
+            'video': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'ID do video do projeto', 'autocomplete': 'off'}),
             'relatorio': forms.URLInput(
                 attrs={'class': 'form-control', 'placeholder': 'Link do relatório', 'autocomplete': 'off', 'required': 'true'}),
             'link': forms.URLInput(
