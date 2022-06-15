@@ -3,7 +3,7 @@
 {% extends 'portfolio/layout.html' %}
 
 {% block main %}
-	<h3 class="title" id="uni">Projetos académicos
+    <h3 class="title" id="uni">Projetos académicos
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='projeto' %}">Adicionar +</a>
         {% endif %}
@@ -23,7 +23,7 @@
                 <div class="content">
                     <p>
                         <b>{{ pj.titulo }}</b>
-                        <br />{{ pj.descricao }}
+                        <br/>{{ pj.descricao }}
                     </p>
                 </div>
                 <div class="author">
@@ -38,7 +38,7 @@
 
     <br><br>
 
-	<h3 class="title" id="auto">Projetos autónomos
+    <h3 class="title" id="auto">Projetos autónomos
         {% if request.user.is_authenticated %}
             <a class="add-btn" href="{% url 'portfolio:novo' tipo='hobby' %}">Adicionar +</a>
         {% endif %}
@@ -62,7 +62,7 @@
                 <div class="content">
                     <p>
                         <b>{{ pj.titulo }}</b>
-                        <br />{{ pj.descricao }}
+                        <br/>{{ pj.descricao }}
                     </p>
                 </div>
                 <div class="author">
@@ -83,23 +83,28 @@
         {% endif %}
     </h3>
     {% load static %}
-    <div class="listagem">
+    <div class="listagem tfc">
         {% for pj in TFCs %}
             <article>
                 {% if request.user.is_authenticated %}
                     <a class="edit" href="{% url 'portfolio:editar' tipo='TFC' tipo_id=pj.id %}">Editar</a>
                 {% endif %}
-                {% if pj.imagem %}
-                    <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
-                {% else %}
-                    <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
-                {% endif %}
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ pj.video }}"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
                 <div class="content">
                     <p>
                         <b>{{ pj.titulo }}</b>
-                        Apresentado em {{ pj.data.year }} por {{ pj.aluno }} com a orientação de {{ pj.orientador.nome }}
-                        <br /><br />
+                        Apresentado em {{ pj.data.year }} por {{ pj.aluno }} com a orientação
+                        de {{ pj.orientador.nome }}
+                        <br/><br/>
                         {{ pj.resumo }}
+                        {% if pj.imagem %}
+                            <img src="{{ pj.imagem.url }}" alt="{{ pj.imagem.name }}">
+                        {% else %}
+                            <img src="{% static 'portfolio/images/default-image.jpg' %}" alt="Image not found">
+                        {% endif %}
                     </p>
                 </div>
                 <div class="author">
