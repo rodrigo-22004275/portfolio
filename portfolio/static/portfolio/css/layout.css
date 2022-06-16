@@ -631,6 +631,15 @@ form input, form select {
     background-color: #6b3333;
 }
 
+.apresentacao {
+    display: block;
+    margin: auto auto 30px auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    height: 400px;
+}
+
 .grafico {
     display: block;
     margin: 30px auto 0 auto;
